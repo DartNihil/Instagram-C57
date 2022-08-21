@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @WebServlet(value = "/reg", name = "RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
-    private final UserService userService = (UserService) new InMemoryUserStorage();
+    private final UserService userService =  new InMemoryUserStorage();
     RegistrationValidator validator = new RegistrationValidator();
 
     @Override
