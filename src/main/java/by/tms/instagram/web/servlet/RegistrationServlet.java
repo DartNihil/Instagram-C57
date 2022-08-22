@@ -1,8 +1,8 @@
 package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
-import by.tms.instagram.service.validator.RegistrationValidator;
 import by.tms.instagram.service.UserService;
+import by.tms.instagram.service.validator.RegistrationValidator;
 import by.tms.instagram.storage.InMemoryUserStorage;
 
 import javax.servlet.ServletException;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @WebServlet(value = "/reg", name = "RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
-    private final UserService userService =  (UserService) new InMemoryUserStorage();
+    private final UserService userService = new UserService();
     RegistrationValidator validator = new RegistrationValidator();
 
     @Override
@@ -54,3 +54,5 @@ public class RegistrationServlet extends HttpServlet {
         }
     }
 }
+
+
