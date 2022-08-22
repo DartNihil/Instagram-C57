@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @WebServlet(value = "/reg", name = "RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
-    private final UserService userService =  new InMemoryUserStorage();
+    private final UserService userService =  (UserService) new InMemoryUserStorage();
     RegistrationValidator validator = new RegistrationValidator();
 
     @Override
@@ -27,7 +27,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (!validator.checkValidation(req.getParameter("nickname"),
                 req.getParameter("name"), req.getParameter("surname"),
-                req.getParameter("email"), req.getParameter("password"))) {
+                req.getParameter("email"))) {
             req.getServletContext().setAttribute("mess", "Fields must not be empty");
             //getServletContext().getRequestDispatcher("/pages/reg.jsp");
             resp.sendRedirect("/pages/reg.jsp");
