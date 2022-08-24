@@ -17,6 +17,21 @@ public class User implements Serializable {
     private User() {
     }
 
+    public User(long id, String name, String surname, String nickname, String email, String password, long userRoleID, long userStatusID) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+        this.userRoleID = userRoleID;
+        this.userStatusID = userStatusID;
+    }
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
+
     public long getId() {
         return id;
     }
@@ -111,55 +126,60 @@ public class User implements Serializable {
                 "; ";
     }
 
-    public static class Builder {
-        private final User newUser;
+    public static class UserBuilder {
+        private long id;
+        private String name;
+        private String surname;
+        private String nickname;
+        private String email;
+        private String password;
+        private long userRoleID;
+        private long userStatusID;
 
-        public Builder() {
-            newUser = new User();
-        }
+        UserBuilder() {}
 
-        public Builder setId(long id) {
-            newUser.id = id;
+        public UserBuilder id(long id) {
+            this.id = id;
             return this;
         }
 
-        public Builder setName(String name) {
-            newUser.name = name;
+        public UserBuilder name(String name) {
+            this.name = name;
             return this;
         }
 
-        public Builder setSurname(String surname) {
-            newUser.surname = surname;
+        public UserBuilder surname(String surname) {
+            this.surname = surname;
             return this;
         }
 
-        public Builder setNickname(String nickname) {
-            newUser.nickname = nickname;
+        public UserBuilder nickname(String nickname) {
+            this.nickname = nickname;
             return this;
         }
 
-        public Builder setEmail(String email) {
-            newUser.email = email;
+        public UserBuilder email(String email) {
+            this.email = email;
             return this;
         }
 
-        public Builder setPassword(String password) {
-            newUser.password = password;
+        public UserBuilder password(String password) {
+            this.password = password;
             return this;
         }
 
-        public Builder setUserRoleID(long userRoleID) {
-            newUser.userRoleID = userRoleID;
+        public UserBuilder userRoleID(long userRoleID) {
+            this.userRoleID = userRoleID;
             return this;
         }
 
-        public Builder setUserStatusID(long userStatusID) {
-            newUser.userStatusID = userStatusID;
+        public UserBuilder userStatusID(long userStatusID) {
+            this.userStatusID = userStatusID;
             return this;
         }
 
         public User build() {
-            return newUser;
+            return new User(this.id, this.name, this.surname, this.nickname,this.email,this.password,this.userRoleID,this.userStatusID);
         }
     }
 }

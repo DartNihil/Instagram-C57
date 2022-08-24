@@ -14,7 +14,7 @@ CREATE DATABASE instagram
 
 -- Table: public.user_role
 
---DROP TABLE IF EXISTS public.user_role;
+-- DROP TABLE IF EXISTS public.user_role;
 
 CREATE TABLE public.user_role
 (
@@ -22,7 +22,7 @@ CREATE TABLE public.user_role
     role character varying(255) NOT NULL,
     CONSTRAINT user_role_pkey PRIMARY KEY (id)
 );
-ALTER SEQUENCE user_role_id_seq RESTART WITH 1;
+-- ALTER SEQUENCE user_role_id_seq RESTART WITH 1;
 INSERT INTO user_role("role") VALUES('admin'),('user');
 
 -- Table: public.user_status
@@ -35,7 +35,7 @@ CREATE TABLE public.user_status
     status character varying(255) NOT NULL,
     CONSTRAINT user_status_pkey PRIMARY KEY (id)
 );
-ALTER SEQUENCE user_status_id_seq RESTART WITH 1;
+-- ALTER SEQUENCE user_status_id_seq RESTART WITH 1;
 INSERT INTO user_status("status") VALUES('active'),('blocked');
 
 -- Table: public.users
