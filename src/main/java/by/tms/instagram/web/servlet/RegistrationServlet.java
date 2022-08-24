@@ -32,13 +32,14 @@ public class RegistrationServlet extends HttpServlet {
             //getServletContext().getRequestDispatcher("/pages/reg.jsp");
             resp.sendRedirect("/pages/reg.jsp");
         } else {
-            User user = new User.Builder().setNickname(req.getParameter("nickname"))
-                    .setName(req.getParameter("name"))
-                    .setSurname(req.getParameter("surname"))
-                    .setEmail(req.getParameter("email"))
-                    .setPassword(req.getParameter("password"))
-                    .setUserRoleID(2)
-                    .setUserStatusID(1)
+            User user = User.builder()
+                    .nickname(req.getParameter("nickname"))
+                    .name(req.getParameter("name"))
+                    .surname(req.getParameter("surname"))
+                    .email(req.getParameter("email"))
+                    .password(req.getParameter("password"))
+                    .userRoleID(2)
+                    .userStatusID(1)
                     .build();
 
             Optional<User> byUsername = userService.findByNickNameAndEmail(user.getEmail(), user.getNickname());
