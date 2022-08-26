@@ -43,7 +43,7 @@ public class RegistrationServlet extends HttpServlet {
                     .build();
 
             Optional<User> byUsername = userService.findByNickNameAndEmail(user.getEmail(), user.getNickname());
-            req.getSession().setAttribute("currentUser", user);
+            //req.getSession().setAttribute("currentUser", user);
 
             if (byUsername.isPresent()) {
                 req.setAttribute("mess", "User is already exist");
