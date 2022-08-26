@@ -5,10 +5,12 @@ import by.tms.instagram.storage.InMemoryUserStorage;
 
 import java.util.Optional;
 
-public class UserService {
-    private final InMemoryUserStorage storage = new InMemoryUserStorage();
-    public Optional<User> findByNickNameAndEmail(String email, String nickname){
-        return storage.findByNickNameAndEmail(email, nickname);
-    };
-    public void save(User user){storage.save(user);};
+public interface UserService {
+    default Optional<User> findByNickNameAndEmail(String nickname, String email) {
+        return Optional.empty();
+    }
+
+    default void save(User user) {
+
+    }
 }

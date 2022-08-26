@@ -2,6 +2,7 @@ package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
 import by.tms.instagram.service.UserService;
+import by.tms.instagram.service.UserServiceImpl;
 import by.tms.instagram.service.validator.RegistrationValidator;
 import by.tms.instagram.storage.InMemoryUserStorage;
 
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 @WebServlet(value = "/reg", name = "RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
-    private final UserService userService = new UserService();
+    private final UserServiceImpl userServiceImpl = new UserServiceImpl();
     RegistrationValidator validator = new RegistrationValidator();
 
     @Override
@@ -42,14 +43,12 @@ public class RegistrationServlet extends HttpServlet {
                     .userStatusID(1)
                     .build();
 
-            Optional<User> byUsername = userService.findByNickNameAndEmail(user.getEmail(), user.getNickname());
-            //req.getSession().setAttribute("currentUser", user);
-
+            Optional<User> byUsername = userServiceImpl.findByNickNameAndEmail(user.getEmail(), user.getNickname());
             if (byUsername.isPresent()) {
                 req.setAttribute("mess", "User is already exist");
                 getServletContext().getRequestDispatcher("/pages/reg.jsp");
             } else {
-                userService.save(user);
+                userServiceImpl.save(user);
                 resp.sendRedirect("/pages/login.jsp");
             }
         }
