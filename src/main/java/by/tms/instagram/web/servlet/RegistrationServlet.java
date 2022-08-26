@@ -1,10 +1,8 @@
 package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
-import by.tms.instagram.service.UserService;
 import by.tms.instagram.service.UserServiceImpl;
 import by.tms.instagram.service.validator.RegistrationValidator;
-import by.tms.instagram.storage.InMemoryUserStorage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +26,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (!validator.checkValidation(req.getParameter("nickname"),
                 req.getParameter("name"), req.getParameter("surname"),
-                req.getParameter("email"))) {
+                req.getParameter("email"), req.getParameter("password"))) {
             req.getServletContext().setAttribute("mess", "Fields must not be empty");
             //getServletContext().getRequestDispatcher("/pages/reg.jsp");
             resp.sendRedirect("/pages/reg.jsp");
