@@ -17,4 +17,7 @@ public class RegistrationValidator {
                 && (password.matches(PASSWORD_PATTERN)
                 && !password.isEmpty());
     }
+    public boolean loginValidation (String nick, String password){
+        return (nick.matches(USERNAME_PATTERN) && (password.matches(PASSWORD_PATTERN)));
+    }
 }

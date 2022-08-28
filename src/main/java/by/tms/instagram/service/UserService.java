@@ -9,8 +9,13 @@ public interface UserService {
     default Optional<User> findByNickNameAndEmail(String nickname, String email) {
         return Optional.empty();
     }
+    default Optional<User>findByNickName(String nickname){
+        return Optional.empty();
+    }
 
     default void save(User user) {
 
     }
+
+
 }

@@ -8,10 +8,17 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final InMemoryUserStorage storage= new InMemoryUserStorage();
 
+
     @Override
     public Optional<User> findByNickNameAndEmail(String nickname, String email) {
         return storage.findByNickNameAndEmail(nickname, email);
     }
+
+    @Override
+    public Optional<User> findByNickName(String nickname) {
+        return storage.findByNickName(nickname);
+    }
+
     @Override
     public void save(User user){
         storage.save(user);

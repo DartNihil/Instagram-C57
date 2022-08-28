@@ -27,4 +27,13 @@ public class InMemoryUserStorage {
         }
         return Optional.empty();
     }
+    public Optional<User> findByNickName(String nick) {
+        for (User user : users) {
+            if (user.getNickname().equals(nick)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
+
 }
