@@ -274,9 +274,10 @@
             <c:forEach items="${user.userPosts}" var="userPost">
                 <div class="col-sm-3">
                     <div class="postDiv">
-                        <form>
+                        <form action="/showPostCard">
                             <button>
                                 <img src="${userPost.picture}" class="img-thumbnail" alt="...">
+                                <input type="hidden" name="postDate" value="${userPost.dateTime}">
                             </button>
                         </form>
                     </div>
