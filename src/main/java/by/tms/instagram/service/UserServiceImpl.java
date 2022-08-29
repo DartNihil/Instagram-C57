@@ -26,4 +26,7 @@ public class UserServiceImpl implements UserService {
         }
         return post;
     }
+    public void setUserPhoto(User user, String picture) {
+        user.setUserPhoto(picture);
+    }
 }
