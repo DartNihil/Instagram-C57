@@ -190,13 +190,13 @@
     <div class="row">
         <div class="col-sm-5 mt-5 justify-content-center">
             <div class="avatarDiv">
-                    <c:if test="${sessionScope.currentUser.userPhoto == null}">
+                    <c:if test="${user.userPhoto == null}">
                         <img
                                 src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png"
                                 class="border border-secondary border-5" alt="...">
                     </c:if>
-                    <c:if test="${sessionScope.currentUser.userPhoto != null}">
-                        <img src="${sessionScope.currentUser.userPhoto}" class="border border-secondary border-5">
+                    <c:if test="${user.userPhoto != null}">
+                        <img src="${user.userPhoto}" class="border border-secondary border-5">
                     </c:if>
             </div>
         </div>
