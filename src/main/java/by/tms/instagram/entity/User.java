@@ -1,6 +1,8 @@
 package by.tms.instagram.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -11,6 +13,10 @@ public class User implements Serializable {
     private String nickname;
     private String email;
     private String password;
+    private String userPhoto;
+    private final List<Post> userPosts = new ArrayList<>();
+    private final List<User> userFollowers = new ArrayList<>();
+    private final List<User> userSubscriptions = new ArrayList<>();
     private long userRoleID;
     private long userStatusID;
 
@@ -80,6 +86,26 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public String getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(String userPhoto) {
+        this.userPhoto = userPhoto;
+    }
+
+    public List<Post> getUserPosts() {
+        return userPosts;
+    }
+
+    public List<User> getUserFollowers() {
+        return userFollowers;
+    }
+
+    public List<User> getUserSubscriptions() {
+        return userSubscriptions;
+    }
+
     public long getUserRoleID() {
         return userRoleID;
     }
@@ -136,7 +162,8 @@ public class User implements Serializable {
         private long userRoleID;
         private long userStatusID;
 
-        UserBuilder() {}
+        UserBuilder() {
+        }
 
         public UserBuilder id(long id) {
             this.id = id;
@@ -179,7 +206,7 @@ public class User implements Serializable {
         }
 
         public User build() {
-            return new User(this.id, this.name, this.surname, this.nickname,this.email,this.password,this.userRoleID,this.userStatusID);
+            return new User(this.id, this.name, this.surname, this.nickname, this.email, this.password, this.userRoleID, this.userStatusID);
         }
     }
 }

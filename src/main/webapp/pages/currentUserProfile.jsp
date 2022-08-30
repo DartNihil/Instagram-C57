@@ -1,15 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
-  User: User
-  Date: 24.08.2022
-  Time: 20:50
+  User: Admin
+  Date: 28.08.2022
+  Time: 9:52
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Profile</title>
+    <title>${currentUser.nickname}</title>
+<%--    avatar and post styles--%>
     <style>
         .avatarDiv {
             padding: 15px;
@@ -49,11 +50,8 @@
             object-fit: cover;
         }
     </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
 <body>
-
 <!-- Navbar starts -->
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container-fluid">
@@ -130,7 +128,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                    aria-expanded="false">
-                                    <%--View small avatar photo at navbar--%>
+<%--                                    View small avatar photo at navbar--%>
                                     <c:if test="${sessionScope.currentUser.userPhoto == null}">
                                         <img src="https://img.freepik.com/premium-vector/figure-of-a-person-hand-drawn-outline-doodle-icon-sketch-illustration-of-a-standing-figure-for-print-web-mobile-and-infographics-isolated-on-white-background_107173-17483.jpg"
                                              class="rounded-circle" height="40" width="40" alt=""/>
@@ -185,19 +183,21 @@
     </div>
 </nav>
 <!-- Navbar ends -->
-
 <div class="container">
     <div class="row">
         <div class="col-sm-5 mt-5 justify-content-center">
             <div class="avatarDiv">
-                    <c:if test="${user.userPhoto == null}">
+                <a href="#avatarModal" role="button" data-bs-toggle="modal">
+                    <c:if test="${sessionScope.currentUser.userPhoto == null}">
                         <img
+                                title="Add a profile picture..."
                                 src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png"
                                 class="border border-secondary border-5" alt="...">
                     </c:if>
-                    <c:if test="${user.userPhoto != null}">
-                        <img src="${user.userPhoto}" class="border border-secondary border-5">
+                    <c:if test="${sessionScope.currentUser.userPhoto != null}">
+                        <img src="${sessionScope.currentUser.userPhoto}" class="border border-secondary border-5">
                     </c:if>
+                </a>
             </div>
         </div>
         <div class="col mt-5">
@@ -205,38 +205,45 @@
                 <div class="row justify-content-center">
                     <div class="col">
                         <figure>
-                            <h1>${user.nickname}</h1>
+                            <h1>${sessionScope.currentUser.nickname}</h1>
                         </figure>
                     </div>
                     <div class="col">
-                        <form>
-                            <button type="button" class="btn btn-outline-secondary">Subscribe</button>
-                        </form>
+                        <figure>
+                            <button type="button" class="btn btn-outline-secondary">Edit profile</button>
+                        </figure>
+                    </div>
+                    <div class="col">
+                        <figure>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#settingsModal">Settings
+                            </button>
+                        </figure>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col mt-5">
                         <figure>
-                            <h4>${user.userPosts.size()} posts</h4>
+                            <h4>${sessionScope.currentUser.userPosts.size()} posts</h4>
                         </figure>
                     </div>
                     <div class="col mt-5">
                         <figure>
                             <a href="#" class="h3 text-dark">
-                                ${user.userFollowers.size()} followers
+                                ${sessionScope.currentUser.userFollowers.size()} followers
                             </a>
                         </figure>
                     </div>
                     <div class="col mt-5">
                         <figure>
                             <a href="#" class="h3 text-dark">
-                                ${user.userSubscriptions.size()} subscriptions
+                                ${sessionScope.currentUser.userSubscriptions.size()} subscriptions
                             </a>
                         </figure>
                     </div>
                 </div>
                 <div class="row mt-5">
-                    <h1>${user.name} ${user.surname}</h1>
+                    <h1>${sessionScope.currentUser.name} ${sessionScope.currentUser.surname}</h1>
                 </div>
             </div>
         </div>
@@ -261,17 +268,18 @@
         </div>
     </div>
 </div>
-<c:if test="${user.userPosts.isEmpty()}">
+
+<c:if test="${sessionScope.currentUser.userPosts.isEmpty()}">
     <div class="container text-center">
         <div style="height: 300px" class="row justify-content-center align-items-center border border-secondary">
-            <h1>${user.name} ${user.surname} doesn't have any photos :(</h1>
+            <h1>You don't have any photos :(</h1>
         </div>
     </div>
 </c:if>
-<c:if test="${!user.userPosts.isEmpty()}">
+<c:if test="${!sessionScope.currentUser.userPosts.isEmpty()}">
     <div class="container text-center border border-secondary">
         <div class="row">
-            <c:forEach items="${user.userPosts}" var="userPost">
+            <c:forEach items="${sessionScope.currentUser.userPosts}" var="userPost">
                 <div class="col-sm-3">
                     <div class="postDiv">
                         <form action="/showPostCard">
@@ -287,8 +295,80 @@
     </div>
 </c:if>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-        crossorigin="anonymous"></script>
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="list-group" id="settingsList">
+                    <a href="#" class="list-group-item list-group-item-action">Change password</a>
+                    <a href="#" class="list-group-item list-group-item-action">QR-code</a>
+                    <a href="#" class="list-group-item list-group-item-action">Apps and websites</a>
+                    <a href="#" class="list-group-item list-group-item-action">Notifications</a>
+                    <a href="#" class="list-group-item list-group-item-action">Privacy and security</a>
+                    <a href="#" class="list-group-item list-group-item-action">Logging into the account</a>
+                    <a href="#" class="list-group-item list-group-item-action">E-mails from Instagram</a>
+                    <a href="#" class="list-group-item list-group-item-action">Report the problem</a>
+                    <a href="#" class="list-group-item list-group-item-action">Exit</a>
+                    <a href="#" class="list-group-item list-group-item-action" data-bs-dismiss="modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="avatarModalLabel">Your profile picture...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="list-group" id="avatarList">
+                    <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#addPhotoModal"
+                       class="list-group-item list-group-item-action">Add photo</a>
+                    <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#deletePhotoModal"
+                       class="list-group-item list-group-item-action">Delete photo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form action="/addProfilePhoto" method="post">
+    <div class="modal fade" id="addPhotoModal" tabindex="-1" aria-labelledby="addPhotoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPhotoModalLabel">Add a profile photo...</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="inputImgSrc" name="srcAvatar"
+                           placeholder="Enter path of file">
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Add a profile photo!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal fade" id="deletePhotoModal" tabindex="-1" aria-labelledby="deletePhotoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePhotoModalLabel">Delete photo</h5>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete this photo?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="/removeProfilePhoto" method="post">
+                    <button class="btn btn-primary">Yes!</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
