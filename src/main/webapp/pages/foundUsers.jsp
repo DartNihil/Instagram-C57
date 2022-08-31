@@ -14,20 +14,17 @@
 <h3>Found users</h3>
 <ul class="list-group">
     <c:forEach var="user" items="${foundUsers}">
-        <div class="col-3 text-left">
-
-            <li class="list-group-item">
-                <img src="https://img.informer.com/icons_mac/png/128/546/546868.png"
-                     class="rounded-circle"
-                     height="40" width="40" alt="..."/>
-                    ${user.name} ${user.surname}
-                <form action="/foundUserProfile">
-                    <button class="btn btn-primary" name="nickname" value="${user.nickname}">
-                        To profile
-                    </button>
-                </form>
-            </li>
-
+        <div class="col-3">
+            <form action="/foundUserProfile">
+                <button class="btn btn-primary" name="nickname" value="${user.nickname}">
+                    <li class="list-group-item">
+                        <img src="${user.userPhoto}"
+                             class="rounded-circle"
+                             height="40" width="40" alt="..."/>
+                            ${user.name} ${user.surname}
+                    </li>
+                </button>
+            </form>
         </div>
     </c:forEach>
 </ul>
