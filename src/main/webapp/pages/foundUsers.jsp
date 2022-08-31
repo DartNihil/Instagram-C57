@@ -25,7 +25,7 @@
         </c:forEach>
     </div>
     <p>${message}</p>
-    <a href="#" class="btn btn-primary" style="margin-left: 8px">Back</a>
+    <a href="/pages/currentUserProfile.jsp" class="btn btn-primary" style="margin-left: 8px">Back</a>
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"

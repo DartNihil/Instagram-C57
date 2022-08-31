@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class InMemoryUserStorage {
 
     private final AtomicLong idGenerator = new AtomicLong(0);
-    private final List<User> users = new ArrayList<>();
+    private static final List<User> users = new ArrayList<>();
 
 
     public void save(User user) {
