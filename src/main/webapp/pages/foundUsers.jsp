@@ -12,22 +12,27 @@
 <body>
 
 <h3>Found users</h3>
-<form action="/found" method="post">
-    <div class="list-group">
-        <c:forEach var="u" items="${foundUsers}">
-            <div class="col-4 text-left">
-                <a href="#" class="list-group-item list-group-item-action">
-                    <!-- Here will be $ {user."profilePicture"} -->
-                    <img src="https://img.informer.com/icons_mac/png/128/546/546868.png" class="rounded-circle"
-                         height="40" width="40" alt=""/>
-                        ${u.name} ${u.surname}</a>
-            </div>
-        </c:forEach>
-    </div>
-    <p>${message}</p>
-    <a href="/pages/currentUserProfile.jsp" class="btn btn-primary" style="margin-left: 8px">Back</a>
-</form>
+<ul class="list-group">
+    <c:forEach var="user" items="${foundUsers}">
+        <div class="col-3 text-left">
 
+            <li class="list-group-item">
+                <img src="https://img.informer.com/icons_mac/png/128/546/546868.png"
+                     class="rounded-circle"
+                     height="40" width="40" alt="..."/>
+                    ${user.name} ${user.surname}
+                <form action="/foundUserProfile">
+                    <button class="btn btn-primary" name="nickname" value="${user.nickname}">
+                        To profile
+                    </button>
+                </form>
+            </li>
+
+        </div>
+    </c:forEach>
+</ul>
+<p>${message}</p>
+<a href="/pages/currentUserProfile.jsp" class="btn btn-primary" style="margin-left: 8px">Back</a>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
