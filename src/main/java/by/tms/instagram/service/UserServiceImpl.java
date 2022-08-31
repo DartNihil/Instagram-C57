@@ -4,10 +4,12 @@ import by.tms.instagram.entity.Post;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.storage.InMemoryUserStorage;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 public class UserServiceImpl implements UserService {
-    private final InMemoryUserStorage storage= new InMemoryUserStorage();
+    private final InMemoryUserStorage storage = new InMemoryUserStorage();
 
     @Override
     public Optional<User> findByNickNameAndEmail(String nickname, String email) {
@@ -31,5 +33,16 @@ public class UserServiceImpl implements UserService {
     }
     public void removeUserPhoto(User user) {
         user.setUserPhoto(null);
+    }
+    public Set<User> checkCoincidencesInNames(String in) {
+        Set<User> setOfFoundUsers = new HashSet<>();
+        if (in != null && !in.isEmpty()) {
+            for (User user : storage.getUsers()) {
+                if (user.getName().contains(in)) {
+                    setOfFoundUsers.add(user);
+                }
+            }
+        }
+        return setOfFoundUsers;
     }
 }

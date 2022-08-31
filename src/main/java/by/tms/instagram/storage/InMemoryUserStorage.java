@@ -27,4 +27,7 @@ public class InMemoryUserStorage {
         }
         return Optional.empty();
     }
+    public List<User> getUsers(){
+        return users;
+    }
 }
