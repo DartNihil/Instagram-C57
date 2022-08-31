@@ -34,11 +34,11 @@ public class UserServiceImpl implements UserService {
     public void removeUserPhoto(User user) {
         user.setUserPhoto(null);
     }
-    public Set<User> checkCoincidencesInNames(String in) {
+    public Set<User> checkCoincidencesInNamesAndSurnames(String in) {
         Set<User> setOfFoundUsers = new HashSet<>();
         if (in != null && !in.isEmpty()) {
             for (User user : storage.getUsers()) {
-                if (user.getName().contains(in)) {
+                if (user.getName().contains(in) || user.getSurname().contains(in)) {
                     setOfFoundUsers.add(user);
                 }
             }

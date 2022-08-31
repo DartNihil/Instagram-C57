@@ -18,7 +18,7 @@ public class FoundUsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String in = req.getParameter("in");
-        Set<User> foundUsers = userService.checkCoincidencesInNames(in);
+        Set<User> foundUsers = userService.checkCoincidencesInNamesAndSurnames(in);
         if(foundUsers.isEmpty()){
             req.setAttribute("message" , "No coincidences");
         }

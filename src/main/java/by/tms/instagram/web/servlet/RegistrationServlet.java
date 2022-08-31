@@ -44,7 +44,7 @@ public class RegistrationServlet extends HttpServlet {
             Optional<User> byUsername = userServiceImpl.findByNickNameAndEmail(user.getEmail(), user.getNickname());
             if (byUsername.isPresent()) {
                 req.setAttribute("mess", "User is already exist");
-                getServletContext().getRequestDispatcher("/pages/reg.jsp");
+                getServletContext().getRequestDispatcher("/pages/reg.jsp").forward(req , resp);
             } else {
                 userServiceImpl.save(user);
                 resp.sendRedirect("/pages/login.jsp");

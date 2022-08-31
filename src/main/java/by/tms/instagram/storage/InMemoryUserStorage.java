@@ -21,7 +21,7 @@ public class InMemoryUserStorage {
     public Optional<User> findByNickNameAndEmail(String email, String nick) {
         for (User user : users) {
             if (user.getEmail().equals(email)
-                    && user.getNickname().equals(nick)) {
+                    || user.getNickname().equals(nick)) {
                 return Optional.of(user);
             }
         }
