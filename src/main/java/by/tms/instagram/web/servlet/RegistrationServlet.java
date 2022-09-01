@@ -1,7 +1,7 @@
 package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
-import by.tms.instagram.service.UserServiceImpl;
+import by.tms.instagram.service.UserService;
 import by.tms.instagram.service.validator.RegistrationValidator;
 
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @WebServlet(value = "/reg", name = "RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
-    private final UserServiceImpl userServiceImpl = new UserServiceImpl();
+    private final UserService userService = UserService.getInstance();
     RegistrationValidator validator = new RegistrationValidator();
 
     @Override
@@ -41,12 +41,12 @@ public class RegistrationServlet extends HttpServlet {
                     .userStatusID(1)
                     .build();
 
-            Optional<User> byUsername = userServiceImpl.findByNickNameAndEmail(user.getEmail(), user.getNickname());
+            Optional<User> byUsername = userService.findByNickNameAndEmail(user.getEmail(), user.getNickname());
             if (byUsername.isPresent()) {
                 req.setAttribute("mess", "User is already exist");
                 getServletContext().getRequestDispatcher("/pages/reg.jsp").forward(req , resp);
             } else {
-                userServiceImpl.save(user);
+                userService.save(user);
                 resp.sendRedirect("/pages/login.jsp");
             }
         }

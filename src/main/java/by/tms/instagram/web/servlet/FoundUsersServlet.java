@@ -1,7 +1,7 @@
 package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
-import by.tms.instagram.service.UserServiceImpl;
+import by.tms.instagram.service.UserService;
 import by.tms.instagram.web.Constant;
 
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.util.Set;
 
 @WebServlet(value = "/found", name = "FoundUsersServlet")
 public class FoundUsersServlet extends HttpServlet {
-    private final UserServiceImpl userService = new UserServiceImpl();
+    private final UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
