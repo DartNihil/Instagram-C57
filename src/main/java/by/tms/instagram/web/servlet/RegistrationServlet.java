@@ -15,7 +15,7 @@ import java.util.Optional;
 @WebServlet(value = "/reg", name = "RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
-    RegistrationValidator validator = new RegistrationValidator();
+    private final RegistrationValidator validator = RegistrationValidator.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +28,6 @@ public class RegistrationServlet extends HttpServlet {
                 req.getParameter("name"), req.getParameter("surname"),
                 req.getParameter("email"), req.getParameter("password"))) {
             req.getServletContext().setAttribute("mess", "Fields must not be empty");
-            //getServletContext().getRequestDispatcher("/pages/reg.jsp");
             resp.sendRedirect("/pages/reg.jsp");
         } else {
             User user = User.builder()

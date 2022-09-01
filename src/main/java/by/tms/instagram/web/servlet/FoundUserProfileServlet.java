@@ -1,6 +1,7 @@
 package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
+import by.tms.instagram.service.UserService;
 import by.tms.instagram.storage.InMemoryUserStorage;
 import by.tms.instagram.web.Constant;
 
@@ -13,12 +14,12 @@ import java.io.IOException;
 
 @WebServlet(value = "/foundUserProfile", name = "FoundUserProfileServlet")
 public class FoundUserProfileServlet extends HttpServlet {
-    private final InMemoryUserStorage inMemoryUserStorage = InMemoryUserStorage.getInstance();
+    private final UserService userService = UserService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String nickname = req.getParameter("nickname");
-        for (User user : inMemoryUserStorage.getUsers()) {
+        for (User user : userService.getUsers()) {
             if (user.getNickname().equals(nickname)) {
                 req.setAttribute("user", user);
                 break;

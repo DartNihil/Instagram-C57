@@ -6,6 +6,7 @@ import by.tms.instagram.storage.InMemoryUserStorage;
 import by.tms.instagram.storage.Storable;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -56,5 +57,8 @@ public class UserService{
             }
         }
         return setOfFoundUsers;
+    }
+    public List<User> getUsers(){
+        return storage.getUsers();
     }
 }
