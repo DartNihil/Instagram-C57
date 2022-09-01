@@ -3,6 +3,7 @@ package by.tms.instagram.service;
 import by.tms.instagram.entity.Post;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.storage.InMemoryUserStorage;
+import by.tms.instagram.storage.Storable;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -20,7 +21,7 @@ public class UserService{
         return instance;
     }
 
-    private final InMemoryUserStorage storage = new InMemoryUserStorage();
+    private final Storable<User> storage = InMemoryUserStorage.getInstance();
 
 
     public Optional<User> findByNickNameAndEmail(String nickname, String email) {

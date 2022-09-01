@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet(value = "/foundUserProfile", name = "FoundUserProfileServlet")
 public class FoundUserProfileServlet extends HttpServlet {
-    private final InMemoryUserStorage inMemoryUserStorage = new InMemoryUserStorage();
+    private final InMemoryUserStorage inMemoryUserStorage = InMemoryUserStorage.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
