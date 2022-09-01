@@ -2,6 +2,7 @@ package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
 import by.tms.instagram.service.UserServiceImpl;
+import by.tms.instagram.web.Constant;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,6 @@ public class FoundUsersServlet extends HttpServlet {
             req.setAttribute("message" , "No coincidences");
         }
         req.setAttribute("foundUsers", foundUsers);
-        getServletContext().getRequestDispatcher("/pages/foundUsers.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher(Constant.FOUND_USERS_PAGE).forward(req, resp);
     }
 }

@@ -2,6 +2,7 @@ package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
 import by.tms.instagram.storage.InMemoryUserStorage;
+import by.tms.instagram.web.Constant;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,6 @@ public class FoundUserProfileServlet extends HttpServlet {
                 break;
             }
         }
-        req.getServletContext().getRequestDispatcher("/pages/profile.jsp").forward(req, resp);
+        req.getServletContext().getRequestDispatcher(Constant.USER_PAGE).forward(req, resp);
     }
 }
