@@ -31,8 +31,8 @@
                     </div>
                     <!-- Search field and button -->
                     <div class="col-md-3">
-                        <form class="d-flex input-group w-auto" style="padding-top:10px">
-                            <input class="form-control me-2" type="search">
+                        <form action="/found" class="d-flex input-group w-auto" style="padding-top:10px">
+                            <input type="search" name="in" class="form-control me-2">
                             <button class="btn btn-outline-dark" type="submit">Search</button>
                         </form>
                     </div>
