@@ -13,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/removeProfilePhoto")
 public class RemovingProfilePhotoServlet extends HttpServlet {
-    UserService userService = UserService.getInstance();
+    private final UserService userService = UserService.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher(Constant.CURRENT_USER_PAGE).forward(req, resp);
