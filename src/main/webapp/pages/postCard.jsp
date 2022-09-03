@@ -23,7 +23,7 @@
                 <div class="card-body">
 
                     <%--JSP for likes and display likes list--%>
-                    <form action="/like" method="post">
+                    <form action="/postLike" method="post">
                         <input type="hidden" name="userEmail" value="${user.email}">
                         <input type="hidden" name="userPostDate" value="${post.dateTime}">
                         <c:if test="${!post.getLikes().contains(currentUser)}">
