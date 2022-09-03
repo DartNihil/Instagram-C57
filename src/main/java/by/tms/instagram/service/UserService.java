@@ -32,15 +32,6 @@ public class UserService{
     public void save(User user){
         storage.save(user);
     }
-    public Post findPost(User user, String postDate) {
-        Post post = new Post();
-        for (Post p : user.getUserPosts()) {
-            if (p.getDateTime().toString().equals(postDate)) {
-                post = p;
-            }
-        }
-        return post;
-    }
     public void setUserPhoto(User user, String picture) {
         user.setUserPhoto(picture);
     }
