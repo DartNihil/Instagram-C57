@@ -278,6 +278,7 @@
                             <button>
                                 <img src="${userPost.picture}" class="img-thumbnail" alt="...">
                                 <input type="hidden" name="postDate" value="${userPost.dateTime}">
+                                <input type="hidden" name="userEmail" value="${user.email}">
                             </button>
                         </form>
                     </div>
