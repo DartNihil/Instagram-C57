@@ -26,26 +26,66 @@
                     <form action="/postLike" method="post">
                         <input type="hidden" name="userEmail" value="${user.email}">
                         <input type="hidden" name="userPostDate" value="${post.dateTime}">
-                        <c:if test="${!post.getLikes().contains(currentUser)}">
-                            <button class="btn btn-light">Like!</button>
-                        </c:if>
-                        <c:if test="${post.getLikes().contains(currentUser)}">
-                            <button class="btn btn-danger">Like!</button>
+                        <c:if test="${user != currentUser}">
+                            <c:if test="${!post.getLikes().contains(currentUser)}">
+                                <button class="btn btn-light">Like!</button>
+                            </c:if>
+                            <c:if test="${post.getLikes().contains(currentUser)}">
+                                <button class="btn btn-danger">Like!</button>
+                            </c:if>
                         </c:if>
                     </form>
-                    <button data-bs-toggle="modal" data-bs-target="#likeListModal">Show likes</button>
-                    <%-- End of JSP for likes and show likes list--%>
+                    <button data-bs-toggle="modal" data-bs-target="#postLikeListModal">${post.getLikes().size()} likes
+                    </button>
+                    <%-- End of JSP for likes and display likes list--%>
 
                     <p class="card-text">${post.dateTime}</p>
                     <p class="card-text">${post.description}</p>
+
+                    <%--Comments with likes and display likes list without adding servlet--%>
+                    <c:forEach items="${post.comments}" var="comment">
+                        <li class="list-group-item">
+                                ${comment.dateTime}
+                            <img src="${comment.author.userPhoto}"
+                                 class="rounded-circle"
+                                 height="40" width="40" alt="..."/>
+                                ${comment.author.fullName}
+                                ${comment.text}
+                            <form action="/commentLike" method="post">
+                                <input type="hidden" name="userEmail" value="${user.email}">
+                                <input type="hidden" name="userPostDate" value="${post.dateTime}">
+                                <input type="hidden" name="postCommentDate" value="${comment.dateTime}">
+                                <c:if test="${comment.author != currentUser}">
+                                    <c:if test="${!comment.getLikes().contains(currentUser)}">
+                                        <button class="btn btn-light">Like!</button>
+                                    </c:if>
+                                    <c:if test="${comment.getLikes().contains(currentUser)}">
+                                        <button class="btn btn-danger">Like!</button>
+                                    </c:if>
+                                </c:if>
+                            </form>
+                            <form action="/showCommentLikes">
+                                <input type="hidden" name="userEmail" value="${user.email}">
+                                <input type="hidden" name="userPostDate" value="${post.dateTime}">
+                                <input type="hidden" name="postCommentDate" value="${comment.dateTime}">
+                                <button>${comment.getLikes().size()} likes</button>
+                            </form>
+                        </li>
+                    </c:forEach>
+                    <form>
+                        <input type="text" class="form-control" id="inputComment" name="text"
+                               placeholder="Enter your comment...">
+                        <button>Add comment</button>
+                    </form>
+                        <%--End comments with likes and display likes list without adding servlet--%>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<%--Modal to display likes list--%>
-<div class="modal fade" id="likeListModal" tabindex="-1" aria-labelledby="likeListModalLabel" aria-hidden="true">
+<%--Modal to display post likes list--%>
+<div class="modal fade" id="postLikeListModal" tabindex="-1" aria-labelledby="likeListModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
