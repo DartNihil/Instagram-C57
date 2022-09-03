@@ -9,6 +9,7 @@ public class Post {
     private String picture;
     private String description;
     private final List<Comment> comments = new ArrayList<>();
+    private final List<User> likes = new ArrayList<>();
 
     public Post() {
     }
@@ -45,5 +46,9 @@ public class Post {
 
     public List<Comment> getComments() {
         return comments;
+    }
+
+    public List<User> getLikes() {
+        return likes;
     }
 }
