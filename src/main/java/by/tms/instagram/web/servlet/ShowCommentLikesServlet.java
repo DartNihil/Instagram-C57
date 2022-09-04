@@ -18,9 +18,9 @@ import java.util.Optional;
 
 @WebServlet("/showCommentLikes")
 public class ShowCommentLikesServlet extends HttpServlet {
-    UserService userService = UserService.getInstance();
-    PostService postService = PostService.getInstance();
-    CommentService commentService = CommentService.getInstance();
+    private final UserService userService = UserService.getInstance();
+    private final PostService postService = PostService.getInstance();
+    private final CommentService commentService = CommentService.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String postDate = req.getParameter("userPostDate");

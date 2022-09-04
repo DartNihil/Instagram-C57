@@ -7,7 +7,7 @@ import by.tms.instagram.entity.User;
 import java.time.LocalDateTime;
 
 public class PostService {
-    private UserService userService = UserService.getInstance();
+    private final UserService userService = UserService.getInstance();
     private static PostService instance;
 
     private PostService() {

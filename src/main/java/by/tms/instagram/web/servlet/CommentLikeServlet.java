@@ -18,9 +18,9 @@ import java.util.Optional;
 
 @WebServlet("/commentLike")
 public class CommentLikeServlet extends HttpServlet {
-    UserService userService = UserService.getInstance();
-    PostService postService = PostService.getInstance();
-    CommentService commentService = CommentService.getInstance();
+    private final UserService userService = UserService.getInstance();
+    private final PostService postService = PostService.getInstance();
+    private final CommentService commentService = CommentService.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
