@@ -6,7 +6,6 @@ public class Like {
     private LocalDateTime likeDate;
     private User author;
     private Post post;
-
     private Comment comment;
     private Post commentPost;
 

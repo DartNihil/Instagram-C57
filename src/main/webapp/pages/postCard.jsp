@@ -68,7 +68,7 @@
                             </li>
                             <!-- Heart -->
                             <li class="nav-item me-3 me-lg-0">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="#likesHistoryModal" data-bs-toggle="modal">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
                                          class="bi bi-heart-fill" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
@@ -167,7 +167,7 @@
                             <img src="${comment.author.userPhoto}"
                                  class="rounded-circle"
                                  height="40" width="40" alt="..."/>
-                                ${comment.author.fullName}
+                                ${comment.author.name} ${comment.author.surname}
                                 ${comment.text}
                             <form action="/commentLike" method="post">
                                 <input type="hidden" name="userEmail" value="${user.email}">
@@ -208,7 +208,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="likeListModalLabel">Likes list</h5>
+                <h5 class="modal-title" id="likeListModalLabel">Post likes list</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -236,6 +236,36 @@
     </div>
 </div>
 <%--End of modal to display likes list--%>
+
+<div class="modal fade" id="likesHistoryModal" tabindex="-1" aria-labelledby="likesHistoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="likesHistoryModalLabel">Likes history</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <c:forEach items="${sessionScope.currentUser.getReversLikesHistory()}" var="like">
+                    <c:if test="${like.comment == null}">
+                        <p><img src="${like.author.userPhoto}" class="rounded-circle"
+                                height="40" width="40" alt="..."> ${like.author.name} ${like.author.surname} likes your post
+                            <img src="${like.post.picture}" class="rounded" height="40" width="40" alt="..."></p>
+                    </c:if>
+                    <c:if test="${like.post == null}">
+                        <p>
+                            <img src="${like.author.userPhoto}" class="rounded-circle"
+                                 height="40" width="40" alt="..."> ${like.author.name} ${like.author.surname} liked your comment
+                            "${like.comment.text}" to post
+                            <img src="${like.commentPost.picture}" class="rounded" height="40" width="40" alt="...">
+                        </p>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
