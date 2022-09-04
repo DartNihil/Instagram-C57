@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Homepage</title>
@@ -30,8 +31,8 @@
                     </div>
                     <!-- Search field and button -->
                     <div class="col-md-3">
-                        <form class="d-flex input-group w-auto" style="padding-top:10px">
-                            <input class="form-control me-2" type="search">
+                        <form action="/found" class="d-flex input-group w-auto" style="padding-top:10px">
+                            <input type="search" name="in" class="form-control me-2">
                             <button class="btn btn-outline-dark" type="submit">Search</button>
                         </form>
                     </div>
@@ -83,7 +84,15 @@
                             <!-- Avatar with dropdown menu with source links-->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="https://img.informer.com/icons_mac/png/128/546/546868.png" class="rounded-circle" height="40" width="40" alt=""/>
+                                    <%--View small avatar photo at navbar--%>
+                                    <c:if test="${sessionScope.currentUser.userPhoto == null}">
+                                        <img src="https://img.freepik.com/premium-vector/figure-of-a-person-hand-drawn-outline-doodle-icon-sketch-illustration-of-a-standing-figure-for-print-web-mobile-and-infographics-isolated-on-white-background_107173-17483.jpg"
+                                             class="rounded-circle" height="40" width="40" alt=""/>
+                                    </c:if>
+                                    <c:if test="${sessionScope.currentUser.userPhoto != null}">
+                                        <img src="${sessionScope.currentUser.userPhoto}" class="rounded-circle"
+                                             height="40" width="40" alt=""/>
+                                    </c:if>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="#">

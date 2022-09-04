@@ -1,6 +1,17 @@
 package by.tms.instagram.service.validator;
 
 public class RegistrationValidator {
+
+    private static RegistrationValidator instance;
+    private RegistrationValidator(){
+
+    }
+    public static RegistrationValidator getInstance() {
+        if (instance == null) {
+            instance = new RegistrationValidator();
+        }
+        return instance;
+    }
     private static final String USERNAME_PATTERN = "[A-Za-z0-9]{3,15}";
     private static final String PASSWORD_PATTERN = "[A-Za-z0-9]{8,15}";
     private static final String EMAIL_PATTERN = "[\\w\\d-]+([\\\\.\\w\\d_-]+)*@[\\w\\d-]+(\\.([\\w\\d]+){0,})*";

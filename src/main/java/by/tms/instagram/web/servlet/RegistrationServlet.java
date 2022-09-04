@@ -1,7 +1,7 @@
 package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
-import by.tms.instagram.service.UserServiceImpl;
+import by.tms.instagram.service.UserService;
 import by.tms.instagram.service.validator.RegistrationValidator;
 
 import javax.servlet.ServletException;
@@ -14,8 +14,8 @@ import java.util.Optional;
 
 @WebServlet(value = "/reg", name = "RegistrationServlet")
 public class RegistrationServlet extends HttpServlet {
-    private final UserServiceImpl userServiceImpl = new UserServiceImpl();
-    RegistrationValidator validator = new RegistrationValidator();
+    private final UserService userService = UserService.getInstance();
+    private final RegistrationValidator validator = RegistrationValidator.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +28,6 @@ public class RegistrationServlet extends HttpServlet {
                 req.getParameter("name"), req.getParameter("surname"),
                 req.getParameter("email"), req.getParameter("password"))) {
             req.getServletContext().setAttribute("mess", "Fields must not be empty");
-            //getServletContext().getRequestDispatcher("/pages/reg.jsp");
             resp.sendRedirect("/pages/reg.jsp");
         } else {
             User user = User.builder()
@@ -41,12 +40,12 @@ public class RegistrationServlet extends HttpServlet {
                     .userStatusID(1)
                     .build();
 
-            Optional<User> byUsername = userServiceImpl.findByNickNameAndEmail(user.getEmail(), user.getNickname());
+            Optional<User> byUsername = userService.findByNickNameAndEmail(user.getEmail(), user.getNickname());
             if (byUsername.isPresent()) {
                 req.setAttribute("mess", "User is already exist");
-                getServletContext().getRequestDispatcher("/pages/reg.jsp");
+                getServletContext().getRequestDispatcher("/pages/reg.jsp").forward(req , resp);
             } else {
-                userServiceImpl.save(user);
+                userService.save(user);
                 resp.sendRedirect("/pages/login.jsp");
             }
         }
