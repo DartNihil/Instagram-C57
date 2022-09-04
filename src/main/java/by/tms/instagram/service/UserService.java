@@ -44,12 +44,14 @@ public class UserService {
         user.setUserPhoto(null);
     }
 
-    public Set<User> checkCoincidencesInNamesAndSurnames(String in) {
+    public Set<User> checkCoincidencesInNamesAndSurnames(String in , long id) {
         Set<User> setOfFoundUsers = new HashSet<>();
         if (in != null && !in.isEmpty()) {
             for (User user : storage.getUsers()) {
                 if (user.getName().contains(in) || user.getSurname().contains(in)) {
-                    setOfFoundUsers.add(user);
+                    if(user.getId() != id){
+                        setOfFoundUsers.add(user);
+                    }
                 }
             }
         }

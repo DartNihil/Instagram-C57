@@ -192,7 +192,7 @@
             <div class="avatarDiv">
                     <c:if test="${user.userPhoto == null}">
                         <img
-                                src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png"
+                                src="https://img.freepik.com/premium-vector/figure-of-a-person-hand-drawn-outline-doodle-icon-sketch-illustration-of-a-standing-figure-for-print-web-mobile-and-infographics-isolated-on-white-background_107173-17483.jpg"
                                 class="border border-secondary border-5" alt="...">
                     </c:if>
                     <c:if test="${user.userPhoto != null}">
