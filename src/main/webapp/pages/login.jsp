@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <title>Login</title>
@@ -21,7 +22,7 @@
                      alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form>
+                <form action="/login" method="post">
                     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                         <p class="lead fw-normal mb-0 me-3"></p>
                     </div>
@@ -35,13 +36,13 @@
 
 
                     <div class="form-outline mb-4 my-4">
-                        <input type="nickname" id="form3Example3" class="form-control form-control-lg"
+                        <input type="text" id="form3Example3" name="nickname" class="form-control form-control-lg"
                                placeholder="Enter a valid nickname" />
                     </div>
 
 
                     <div class="form-outline mb-3">
-                        <input type="password" id="form3Example4" class="form-control form-control-lg"
+                        <input type="password" id="form3Example4" name="password" class="form-control form-control-lg"
                                placeholder="Enter password" />
                     </div>
 
@@ -50,7 +51,7 @@
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="button" class="btn btn-primary btn-lg"
+                        <button class="btn btn-primary btn-lg"
                                 style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
                         <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
                                                                                           class="link-danger">Register</a></p>
@@ -62,22 +63,15 @@
     </div>
     </div>
 </section>
+<c:if test="${not empty mess}">
+    <script>
+        window.addEventListener("load",function(){
+            alert("${mess}");
+        })
+    </script>
+</c:if>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
-<p>${requestScope.message}</p>
-<p>${sessionScope.currentUser.nickname}</p>
-<p>${sessionScope.currentUser.name}</p>
-<p>${sessionScope.currentUser.surname}</p>
-<p>${sessionScope.currentUser.email}</p>
-<p>${sessionScope.currentUser.password}</p>
-<p>${sessionScope.currentUser.id}</p>
-<p>${sessionScope.currentUser.userRoleID}</p>
-<p>${sessionScope.currentUser.userStatusID}</p>
-
-<p>${sessionScope.message}</p>
-<p>${response.message}</p>
-<p>${requestScope.message}</p>
-
 </body>
 </html>

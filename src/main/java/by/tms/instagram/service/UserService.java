@@ -21,9 +21,7 @@ public class UserService{
         }
         return instance;
     }
-    default Optional<User>findByNickName(String nickname){
-        return Optional.empty();
-    }
+
 
     private final UserStorage<User , Long> storage = InMemoryUserStorage.getInstance();
 
@@ -35,6 +33,7 @@ public class UserService{
     public void save(User user){
         storage.save(user);
     }
+
     public Post findPost(User user, String postDate) {
         Post post = new Post();
         for (Post p : user.getUserPosts()) {
@@ -44,12 +43,15 @@ public class UserService{
         }
         return post;
     }
+
     public void setUserPhoto(User user, String picture) {
         user.setUserPhoto(picture);
     }
+
     public void removeUserPhoto(User user) {
         user.setUserPhoto(null);
     }
+
     public Set<User> checkCoincidencesInNamesAndSurnames(String in) {
         Set<User> setOfFoundUsers = new HashSet<>();
         if (in != null && !in.isEmpty()) {
@@ -61,9 +63,12 @@ public class UserService{
         }
         return setOfFoundUsers;
     }
+
     public List<User> getUsers(){
         return storage.getUsers();
     }
 
-
+    public Optional<User>findByNickName(String nickname){
+        return storage.findByNickName(nickname);
+    }
 }
