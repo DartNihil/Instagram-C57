@@ -1,5 +1,6 @@
 package by.tms.instagram.service;
 
+import by.tms.instagram.entity.Like;
 import by.tms.instagram.entity.Post;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.storage.InMemoryUserStorage;
@@ -10,11 +11,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-public class UserService{
+public class UserService {
     private static UserService instance;
-    private UserService(){
+
+    private UserService() {
 
     }
+
     public static UserService getInstance() {
         if (instance == null) {
             instance = new UserService();
@@ -22,22 +25,25 @@ public class UserService{
         return instance;
     }
 
-    private final UserStorage<User , Long> storage = InMemoryUserStorage.getInstance();
+    private final UserStorage<User, Long> storage = InMemoryUserStorage.getInstance();
 
 
     public Optional<User> findByNickNameAndEmail(String nickname, String email) {
         return storage.findByNickNameAndEmail(nickname, email);
     }
 
-    public void save(User user){
+    public void save(User user) {
         storage.save(user);
     }
+
     public void setUserPhoto(User user, String picture) {
         user.setUserPhoto(picture);
     }
+
     public void removeUserPhoto(User user) {
         user.setUserPhoto(null);
     }
+
     public Set<User> checkCoincidencesInNamesAndSurnames(String in) {
         Set<User> setOfFoundUsers = new HashSet<>();
         if (in != null && !in.isEmpty()) {
@@ -49,7 +55,13 @@ public class UserService{
         }
         return setOfFoundUsers;
     }
-    public List<User> getUsers(){
+
+    public List<User> getUsers() {
         return storage.getUsers();
+    }
+
+    public List<Like> addLikeInHistory(User user, Like like) {
+        user.getLikesHistory().add(like);
+        return user.getLikesHistory();
     }
 }
