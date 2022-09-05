@@ -2,6 +2,7 @@ package by.tms.instagram.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,7 @@ public class User implements Serializable {
     private final List<Post> userPosts = new ArrayList<>();
     private final List<User> userFollowers = new ArrayList<>();
     private final List<User> userSubscriptions = new ArrayList<>();
+    private final List<Like> likesHistory = new ArrayList<>();
     private long userRoleID;
     private long userStatusID;
 
@@ -122,6 +124,13 @@ public class User implements Serializable {
         this.userStatusID = userStatusID;
     }
 
+    public List<Like> getLikesHistory() {
+        return likesHistory;
+    }
+    public List<Like> getReverseLikesHistory() {
+        Collections.reverse(likesHistory);
+        return likesHistory;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
