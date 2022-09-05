@@ -58,10 +58,14 @@ public class UserService {
         return setOfFoundUsers;
     }
 
-    public List<User> getUsers() {
+
+    public List<User> getUsers(){
         return storage.getUsers();
     }
 
+    public Optional<User>findByNickName(String nickname){
+        return storage.findByNickName(nickname);
+        }
     public List<Like> addLikeInHistory(User user, Like like) {
         user.getLikesHistory().add(like);
         return user.getLikesHistory();

@@ -52,4 +52,15 @@ public class InMemoryUserStorage implements UserStorage<User , Long> {
     public List<User> getUsers(){
         return users;
     }
+
+    @Override
+    public Optional<User> findByNickName(String nickname) {
+        for (User user : users) {
+            if (user.getNickname().equals(nickname)){
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
+
 }

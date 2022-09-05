@@ -7,4 +7,6 @@ public interface UserStorage<T, E> extends CrudDao<T, E> {
     List<T> getUsers();
 
     Optional<T> findByNickNameAndEmail(String email, String nick);
+
+    Optional<T> findByNickName(String nickname);
 }
