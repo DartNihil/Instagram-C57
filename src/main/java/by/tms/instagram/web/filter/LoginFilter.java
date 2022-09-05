@@ -12,7 +12,7 @@ import java.io.IOException;
 public class LoginFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        if (req.getSession().getAttribute("currentUser") == null ) {
+        if (req.getSession().getAttribute("currentUser") != null ) {
             res.sendRedirect("/pages/reg.jsp");
         }
         else{

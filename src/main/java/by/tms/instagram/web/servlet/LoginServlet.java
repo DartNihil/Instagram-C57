@@ -3,6 +3,7 @@ package by.tms.instagram.web.servlet;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.service.validator.RegistrationValidator;
+import by.tms.instagram.web.Constant;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
+
+import static by.tms.instagram.web.Constant.CURRENT_USER_PAGE;
 
 
 @WebServlet(value = "/login", name = "LoginServlet")
@@ -34,8 +37,8 @@ public class LoginServlet extends HttpServlet {
             Optional<User> user = userService.findByNickName(req.getParameter("nickname"));
             if (user.isPresent()) {
                 if (req.getParameter("password").equals(user.get().getPassword())) {
-                    req.getSession().setAttribute("currentUser", user);
-                    resp.sendRedirect("/pages/homepage.jsp");
+                    req.getSession().setAttribute("currentUser", user.get());
+                    getServletContext().getRequestDispatcher(CURRENT_USER_PAGE).forward(req, resp);
                 } else {
                     req.getServletContext().setAttribute("mess", "Wrong password");
                     resp.sendRedirect(req.getContextPath() + "/login");
