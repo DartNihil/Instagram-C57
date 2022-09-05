@@ -31,7 +31,7 @@ public class SettingsServlet extends HttpServlet {
             req.getServletContext().setAttribute("message", "the number of entered signs is exceeded or field doesn't correspond to validation ");
             resp.sendRedirect("/pages/settings.jsp");
         }
-        Optional<User> user = inMemoryUserStorage.findByNickname(req.getParameter("nickname"));
+        Optional<User> user = inMemoryUserStorage.findByNickName(req.getParameter("nickname"));
         if (user.isPresent()) {
             req.getServletContext().setAttribute("message", "Error! User with the same nickname exists");
             resp.sendRedirect("/pages/settings.jsp");
