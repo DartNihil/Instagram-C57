@@ -24,6 +24,6 @@ public class AddingProfilePhotoServlet extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         String srcAvatar = req.getParameter("srcAvatar");
         userService.setUserPhoto(currentUser, srcAvatar);
-        getServletContext().getRequestDispatcher(Constant.CURRENT_USER_PAGE).forward(req, resp);
+        resp.sendRedirect(Constant.CURRENT_USER_PAGE);
     }
 }

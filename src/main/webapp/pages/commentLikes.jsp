@@ -1,87 +1,38 @@
 <%--
   Created by IntelliJ IDEA.
   User: Admin
-  Date: 28.08.2022
-  Time: 9:52
+  Date: 04.09.2022
+  Time: 14:58
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>${currentUser.nickname}</title>
-<%--    avatar and post styles--%>
-    <style>
-        .avatarDiv {
-            padding: 15px;
-            width: 300px;
-            height: 300px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .avatarDiv img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 300px;
-        }
-
-        .postDiv {
-            padding: 20px;
-            width: 300px;
-            height: 300px;
-            position: relative;
-            overflow: hidden;
-            float: left
-        }
-
-        .postDiv img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            object-fit: cover;
-        }
-    </style>
+    <title>Comment Likes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 </head>
 <body>
-<!-- Navbar starts -->
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container-fluid">
-
         <div class="collapse navbar-collapse justify-content-center" id="navbarCenteredExample">
             <div class="container">
                 <div class="row">
-                    <!-- Instagram logo , clickable source + img source -->
-                    <div class="col-md-5">
-                        <a class="navbar-brand" href="#">
-                            <img src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-                                 height="30" style="margin-top: 1rem" alt=""/>
-                        </a>
-                    </div>
+                    <div class="col-md-5"></div>
                     <!-- Search field and button -->
                     <div class="col-md-3">
                         <form action="/found" class="d-flex input-group w-auto" style="padding-top:10px">
-                            <input type="search" name="in" class="form-control me-2">
+                            <input class="form-control me-2" name="in" type="search">
                             <button class="btn btn-outline-dark" type="submit">Search</button>
                         </form>
                     </div>
-
                     <!-- Icons with sources -->
                     <div class="col-md-3">
                         <ul class="navbar-nav justify-content-center">
                             <!-- Home -->
                             <li class="nav-item me-3 me-lg-0">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="/showAllUsers">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
                                          class="bi bi-house-door-fill" viewBox="0 0 16 16">
                                         <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
@@ -99,7 +50,7 @@
                             </li>
                             <!-- Plus -->
                             <li class="nav-item me-3 me-lg-0">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#addPostModal" href="#">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
                                          class="bi bi-plus-square-fill" viewBox="0 0 16 16">
                                         <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
@@ -125,12 +76,10 @@
                                     </svg>
                                 </a>
                             </li>
-
                             <!-- Avatar with dropdown menu with source links-->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                    aria-expanded="false">
-<%--                                    View small avatar photo at navbar--%>
                                     <c:if test="${sessionScope.currentUser.userPhoto == null}">
                                         <img src="https://img.freepik.com/premium-vector/figure-of-a-person-hand-drawn-outline-doodle-icon-sketch-illustration-of-a-standing-figure-for-print-web-mobile-and-infographics-isolated-on-white-background_107173-17483.jpg"
                                              class="rounded-circle" height="40" width="40" alt=""/>
@@ -175,201 +124,33 @@
                                         Logout </a></li>
                                 </ul>
                             </li>
-
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </nav>
-<!-- Navbar ends -->
 <div class="container">
     <div class="row">
-        <div class="col-sm-5 mt-5 justify-content-center">
-            <div class="avatarDiv">
-                <a href="#avatarModal" role="button" data-bs-toggle="modal">
-                    <c:if test="${sessionScope.currentUser.userPhoto == null}">
-                        <img
-                                title="Add a profile picture..."
-                                src="https://icons-for-free.com/iconfiles/png/512/add+photo+plus+upload+icon-1320184050039319890.png"
-                                class="border border-secondary border-5" alt="...">
-                    </c:if>
-                    <c:if test="${sessionScope.currentUser.userPhoto != null}">
-                        <img src="${sessionScope.currentUser.userPhoto}" class="border border-secondary border-5">
-                    </c:if>
-                </a>
-            </div>
-        </div>
-        <div class="col mt-5">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col">
-                        <figure>
-                            <h1>${sessionScope.currentUser.nickname}</h1>
-                        </figure>
-                    </div>
-                    <div class="col">
-                        <figure>
-                            <button type="button" class="btn btn-outline-secondary">Edit profile</button>
-                        </figure>
-                    </div>
-                    <div class="col">
-                        <figure>
-                            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#settingsModal">Settings
-                            </button>
-                        </figure>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col mt-5">
-                        <figure>
-                            <h4>${sessionScope.currentUser.userPosts.size()} posts</h4>
-                        </figure>
-                    </div>
-                    <div class="col mt-5">
-                        <figure>
-                            <a href="#" class="h3 text-dark">
-                                ${sessionScope.currentUser.userFollowers.size()} followers
-                            </a>
-                        </figure>
-                    </div>
-                    <div class="col mt-5">
-                        <figure>
-                            <a href="#" class="h3 text-dark">
-                                ${sessionScope.currentUser.userSubscriptions.size()} subscriptions
-                            </a>
-                        </figure>
-                    </div>
-                </div>
-                <div class="row mt-5">
-                    <h1>${sessionScope.currentUser.name} ${sessionScope.currentUser.surname}</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container text-center">
-    <div class="row justify-content-center">
-        <div class="col mt-5">
-            <figure>
-                <a href="#" role="button" class="h3 text-dark">POSTS</a>
-            </figure>
-        </div>
-        <div class="col mt-5">
-            <figure>
-                <a href="#" role="button" class="h3 text-dark">SAVED</a>
-            </figure>
-        </div>
-        <div class="col mt-5">
-            <figure>
-                <a href="#" role="button" class="h3 text-dark">MARKS</a>
-            </figure>
-        </div>
-    </div>
-</div>
-
-<c:if test="${sessionScope.currentUser.userPosts.isEmpty()}">
-    <div class="container text-center">
-        <div style="height: 300px" class="row justify-content-center align-items-center border border-secondary">
-            <h1>You don't have any photos :(</h1>
-        </div>
-    </div>
-</c:if>
-<c:if test="${!sessionScope.currentUser.userPosts.isEmpty()}">
-    <div class="container text-center border border-secondary">
-        <div class="row">
-            <c:forEach items="${sessionScope.currentUser.userPosts}" var="userPost">
+        <div class="col-sm-7 mt-5 justify-content-center">
+            <c:forEach items="${comment.likes}" var="userLike">
                 <div class="col-sm-3">
-                    <div class="postDiv">
-                        <form action="/showPostCard">
+                    <div>
+                        <form action="/foundUserProfile">
                             <button>
-                                <img src="${userPost.picture}" class="img-thumbnail" alt="...">
-                                <input type="hidden" name="postDate" value="${userPost.dateTime}">
-                                <input type="hidden" name="userEmail" value="${sessionScope.currentUser.email}">
+                                <input type="hidden" name="nickname" value="${userLike.nickname}">
+                                <li class="list-group-item">
+                                    <img src="${userLike.userPhoto}"
+                                         class="rounded-circle"
+                                         height="40" width="40" alt="..."/>
+                                        ${userLike.name} ${userLike.surname}
+                                </li>
                             </button>
                         </form>
                     </div>
                 </div>
             </c:forEach>
-        </div>
-    </div>
-</c:if>
-</div>
-<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="list-group" id="settingsList">
-                    <a href="#" class="list-group-item list-group-item-action">Change password</a>
-                    <a href="#" class="list-group-item list-group-item-action">QR-code</a>
-                    <a href="#" class="list-group-item list-group-item-action">Apps and websites</a>
-                    <a href="#" class="list-group-item list-group-item-action">Notifications</a>
-                    <a href="#" class="list-group-item list-group-item-action">Privacy and security</a>
-                    <a href="#" class="list-group-item list-group-item-action">Logging into the account</a>
-                    <a href="#" class="list-group-item list-group-item-action">E-mails from Instagram</a>
-                    <a href="#" class="list-group-item list-group-item-action">Report the problem</a>
-                    <a href="#" class="list-group-item list-group-item-action">Exit</a>
-                    <a href="#" class="list-group-item list-group-item-action" data-bs-dismiss="modal">Cancel</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="avatarModalLabel">Your profile picture...</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="list-group" id="avatarList">
-                    <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#addPhotoModal"
-                       class="list-group-item list-group-item-action">Add photo</a>
-                    <a href="#" role="button" data-bs-toggle="modal" data-bs-target="#deletePhotoModal"
-                       class="list-group-item list-group-item-action">Delete photo</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<form action="/addProfilePhoto" method="post">
-    <div class="modal fade" id="addPhotoModal" tabindex="-1" aria-labelledby="addPhotoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addPhotoModalLabel">Add a profile photo...</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="text" class="form-control" id="inputImgSrc" name="srcAvatar"
-                           placeholder="Enter path of file">
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary">Add a profile photo!</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<div class="modal fade" id="deletePhotoModal" tabindex="-1" aria-labelledby="deletePhotoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deletePhotoModalLabel">Delete photo</h5>
-            </div>
-            <div class="modal-body">
-                <p>Do you really want to delete this photo?</p>
-            </div>
-            <div class="modal-footer">
-                <form action="/removeProfilePhoto" method="post">
-                    <button class="btn btn-primary">Yes!</button>
-                </form>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            </div>
         </div>
     </div>
 </div>
@@ -402,7 +183,6 @@
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
