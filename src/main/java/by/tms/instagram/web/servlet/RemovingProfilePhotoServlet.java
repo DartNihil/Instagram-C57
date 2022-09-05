@@ -23,6 +23,6 @@ public class RemovingProfilePhotoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         userService.removeUserPhoto(currentUser);
-        getServletContext().getRequestDispatcher(Constant.CURRENT_USER_PAGE).forward(req, resp);
+        resp.sendRedirect(Constant.CURRENT_USER_PAGE);
     }
 }
