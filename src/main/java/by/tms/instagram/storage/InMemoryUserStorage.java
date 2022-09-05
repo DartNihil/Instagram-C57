@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class InMemoryUserStorage implements UserStorage<User , Long> {
+public class InMemoryUserStorage implements UserStorage<User, Long> {
     private static InMemoryUserStorage instance;
-    private InMemoryUserStorage(){
+
+    private InMemoryUserStorage() {
 
     }
+
     public static InMemoryUserStorage getInstance() {
         if (instance == null) {
             instance = new InMemoryUserStorage();
@@ -21,6 +23,7 @@ public class InMemoryUserStorage implements UserStorage<User , Long> {
 
     private final AtomicLong idGenerator = new AtomicLong(0);
     private final List<User> users = new ArrayList<>();
+
     @Override
     public User save(User user) {
         user.setId(idGenerator.incrementAndGet());
@@ -30,9 +33,9 @@ public class InMemoryUserStorage implements UserStorage<User , Long> {
 
     @Override
     public Optional<User> getById(Long id) {
-        for(User user : users){
-            if(user.getId() == id){
-               return Optional.of(user);
+        for (User user : users) {
+            if (user.getId() == id) {
+                return Optional.of(user);
             }
         }
         return Optional.empty();
@@ -48,8 +51,29 @@ public class InMemoryUserStorage implements UserStorage<User , Long> {
         }
         return Optional.empty();
     }
+
     @Override
-    public List<User> getUsers(){
+    public Optional<User> findByNickname(String nickname) {
+        for (User user : users) {
+            if (user.getNickname().equals(nickname)) {
+                return Optional.of(user);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public void updateUser(String name, String surname, String nickname, String email) {
+        Optional<User> user = findByNickname(nickname);
+        User user1 = user.get();
+        user1.setName(name);
+        user1.setSurname(surname);
+        user1.setNickname(nickname);
+        user1.setEmail(email);
+    }
+
+    @Override
+    public List<User> getUsers() {
         return users;
     }
 }
