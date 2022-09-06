@@ -16,9 +16,10 @@ public class LikesFacade {
     private final PostService postService = PostService.getInstance();
     private final CommentService commentService = CommentService.getInstance();
 
+    private final Map<String, Object> objectMap = new HashMap<>();
+
     public Map<String, Object> getObjects(User currentUser, String email, String postDate, String commentDate) {
-        Map<String, Object> objectMap = new HashMap<>();
-        Optional<User> userByEmail = userService.findByNickNameAndEmail("", email);
+        Optional<User> userByEmail = userService.findByNickNameAndEmail(email, "");
         User userInBase = userByEmail.get();
         Post post = postService.findPost(userInBase, postDate);
         Comment comment = commentService.findComment(post, commentDate);
@@ -26,6 +27,16 @@ public class LikesFacade {
         objectMap.put("post", post);
         objectMap.put("user", userInBase);
         objectMap.put("comment", comment);
+        return objectMap;
+    }
+
+    public Map<String, Object> getObjects(User currentUser, String email, String postDate) {
+        Optional<User> userByEmail = userService.findByNickNameAndEmail(email, "");
+        User userInBase = userByEmail.get();
+        Post post = postService.findPost(userInBase, postDate);
+        post = postService.likePost(userInBase, currentUser, post, postDate);
+        objectMap.put("post", post);
+        objectMap.put("user", userInBase);
         return objectMap;
     }
 }
