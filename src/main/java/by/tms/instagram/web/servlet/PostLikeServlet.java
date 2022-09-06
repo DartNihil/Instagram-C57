@@ -24,7 +24,7 @@ public class PostLikeServlet extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         String postDate = req.getParameter("userPostDate");
         String email = req.getParameter("userEmail");
-        Optional<User> userByEmail = userService.findByNickNameAndEmail("", email);
+        Optional<User> userByEmail = userService.findByNickNameAndEmail(email, "");
         User user = userByEmail.get();
         Post post = postService.findPost(userByEmail.get(), postDate);
         post = postService.likePost(user, currentUser, post, postDate);

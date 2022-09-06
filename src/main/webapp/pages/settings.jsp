@@ -262,7 +262,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <c:forEach items="${sessionScope.currentUser.getReversLikesHistory()}" var="like">
+                <c:forEach items="${sessionScope.currentUser.getReverseLikesHistory()}" var="like">
                     <c:if test="${like.comment == null}">
                         <p><img src="${like.author.userPhoto}" class="rounded-circle"
                                 height="40" width="40" alt="..."> ${like.author.name} ${like.author.surname} likes your post
