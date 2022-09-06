@@ -26,7 +26,7 @@ public class ShowCommentLikesServlet extends HttpServlet {
         String postDate = req.getParameter("userPostDate");
         String userEmail = req.getParameter("userEmail");
         String commentDate = req.getParameter("postCommentDate");
-        Optional<User> userByEmail = userService.findByNickNameAndEmail("", userEmail);
+        Optional<User> userByEmail = userService.findByNickNameAndEmail(userEmail, "");
         Post post = postService.findPost(userByEmail.get(), postDate);
         Comment comment = commentService.findComment(post, commentDate);
         req.setAttribute("comment", comment);

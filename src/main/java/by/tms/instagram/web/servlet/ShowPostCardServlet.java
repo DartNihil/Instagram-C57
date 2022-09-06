@@ -23,7 +23,7 @@ public class ShowPostCardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String postDate = req.getParameter("postDate");
         String userEmail = req.getParameter("userEmail");
-        Optional<User> userByEmail = userService.findByNickNameAndEmail("", userEmail);
+        Optional<User> userByEmail = userService.findByNickNameAndEmail(userEmail, "");
         Post post = postService.findPost(userByEmail.get(), postDate);
         req.setAttribute("post", post);
         req.setAttribute("user", userByEmail.get());

@@ -28,8 +28,8 @@ public class UserService {
     private final UserStorage<User, Long> storage = InMemoryUserStorage.getInstance();
 
 
-    public Optional<User> findByNickNameAndEmail(String nickname, String email) {
-        return storage.findByNickNameAndEmail(nickname, email);
+    public Optional<User> findByNickNameAndEmail(String email, String nickname) {
+        return storage.findByNickNameAndEmail(email, nickname);
     }
 
     public void save(User user) {
