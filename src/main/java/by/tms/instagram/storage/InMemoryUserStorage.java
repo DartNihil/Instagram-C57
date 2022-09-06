@@ -51,6 +51,7 @@ public class InMemoryUserStorage implements UserStorage<User, Long> {
         }
         return Optional.empty();
     }
+
     @Override
     public void updateUser(String name, String surname, String nickname, String email) {
         Optional<User> user = this.findByNickName(nickname);
@@ -62,6 +63,17 @@ public class InMemoryUserStorage implements UserStorage<User, Long> {
     }
 
     @Override
+    public List<String> findNicknamesByTheSamePassword(String password) {
+        List<String> nicknames = new ArrayList<>();
+        for (User user : users) {
+            if (user.getPassword().equals(password)) {
+                nicknames.add(user.getNickname());
+            }
+        }
+        return nicknames;
+    }
+
+    @Override
     public List<User> getUsers() {
         return users;
     }
@@ -69,10 +81,11 @@ public class InMemoryUserStorage implements UserStorage<User, Long> {
     @Override
     public Optional<User> findByNickName(String nickname) {
         for (User user : users) {
-            if (user.getNickname().equals(nickname)){
+            if (user.getNickname().equals(nickname)) {
                 return Optional.of(user);
             }
         }
         return Optional.empty();
     }
+
 }
