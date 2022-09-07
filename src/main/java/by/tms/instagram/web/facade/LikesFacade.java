@@ -7,8 +7,6 @@ import by.tms.instagram.service.CommentService;
 import by.tms.instagram.service.PostService;
 import by.tms.instagram.service.UserService;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 public class LikesFacade {
@@ -16,27 +14,29 @@ public class LikesFacade {
     private final PostService postService = PostService.getInstance();
     private final CommentService commentService = CommentService.getInstance();
 
-    private final Map<String, Object> objectMap = new HashMap<>();
-
-    public Map<String, Object> getObjects(User currentUser, String email, String postDate, String commentDate) {
+    public HelperLikesClass getLikedObject(User currentUser, String email, String postDate, String commentDate) {
         Optional<User> userByEmail = userService.findByNickNameAndEmail(email, "");
-        User userInBase = userByEmail.get();
+        User userInBase = null;
+        if (userByEmail.isPresent()) {
+            userInBase = userByEmail.get();
+        }
+        assert userInBase != null;
         Post post = postService.findPost(userInBase, postDate);
         Comment comment = commentService.findComment(post, commentDate);
         comment = commentService.likeComment(post, currentUser, comment, commentDate);
-        objectMap.put("post", post);
-        objectMap.put("user", userInBase);
-        objectMap.put("comment", comment);
-        return objectMap;
+        return new HelperLikesClass(userInBase, post, comment);
     }
 
-    public Map<String, Object> getObjects(User currentUser, String email, String postDate) {
+
+    public HelperLikesClass getLikedObject(User currentUser, String email, String postDate) {
         Optional<User> userByEmail = userService.findByNickNameAndEmail(email, "");
-        User userInBase = userByEmail.get();
+        User userInBase = null;
+        if (userByEmail.isPresent()) {
+            userInBase = userByEmail.get();
+        }
+        assert userInBase != null;
         Post post = postService.findPost(userInBase, postDate);
         post = postService.likePost(userInBase, currentUser, post, postDate);
-        objectMap.put("post", post);
-        objectMap.put("user", userInBase);
-        return objectMap;
+        return new HelperLikesClass(userInBase, post);
     }
 }

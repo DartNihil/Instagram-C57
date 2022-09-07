@@ -5,6 +5,7 @@ import by.tms.instagram.entity.User;
 import by.tms.instagram.service.PostService;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.web.Constant;
+import by.tms.instagram.web.facade.HelperLikesClass;
 import by.tms.instagram.web.facade.LikesFacade;
 
 import javax.servlet.ServletException;
@@ -25,10 +26,9 @@ public class PostLikeServlet extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         String postDate = req.getParameter("userPostDate");
         String email = req.getParameter("userEmail");
-        Map<String, Object> objectMap = likesFacade.getObjects(currentUser, email, postDate);
-        for (String key : objectMap.keySet()) {
-            req.setAttribute(key, objectMap.get(key));
-        }
+        HelperLikesClass helperLikesClass = likesFacade.getLikedObject(currentUser, email, postDate);
+        req.setAttribute("user", helperLikesClass.getUser());
+        req.setAttribute("post", helperLikesClass.getPost());
         getServletContext().getRequestDispatcher(Constant.USER_POST_CARD).forward(req, resp);
     }
 }

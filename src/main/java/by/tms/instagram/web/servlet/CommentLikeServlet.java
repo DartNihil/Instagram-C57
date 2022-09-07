@@ -7,6 +7,7 @@ import by.tms.instagram.service.CommentService;
 import by.tms.instagram.service.PostService;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.web.Constant;
+import by.tms.instagram.web.facade.HelperLikesClass;
 import by.tms.instagram.web.facade.LikesFacade;
 
 import javax.servlet.ServletException;
@@ -28,10 +29,10 @@ public class CommentLikeServlet extends HttpServlet {
         String postDate = req.getParameter("userPostDate");
         String commentDate = req.getParameter("postCommentDate");
         String email = req.getParameter("userEmail");
-        Map<String, Object> objectMap = likesFacade.getObjects(currentUser, email, postDate, commentDate);
-        for (String key : objectMap.keySet()) {
-            req.setAttribute(key, objectMap.get(key));
-        }
+        HelperLikesClass helperLikesClass = likesFacade.getLikedObject(currentUser, email, postDate, commentDate);
+        req.setAttribute("user", helperLikesClass.getUser());
+        req.setAttribute("post", helperLikesClass.getPost());
+        req.setAttribute("comment", helperLikesClass.getComment());
         getServletContext().getRequestDispatcher(Constant.USER_POST_CARD).forward(req, resp);
     }
 }
