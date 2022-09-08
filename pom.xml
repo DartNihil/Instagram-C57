@@ -8,7 +8,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>InstaGram</name>
+    <name>Instagram-C57</name>
     <url>http://www.example.com</url>
 
     <properties>
