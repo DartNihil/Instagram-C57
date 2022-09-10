@@ -139,16 +139,20 @@
         </div>
     </div>
     <div style="height: 500px" class="row">
-
+        <c:forEach items="${listOfPrivateMessages}" var="message">
+            ${message.dateTime} ${message.author} ${message.text}
+        </c:forEach>
     </div>
 </div>
 <div class="container">
     <div class="row mt-5">
         <div class="col-sm-7">
-            <input size="100px" type="text" name="message" placeholder="Write a message...">
+            <input size="100px" type="text" name="privateMessage" placeholder="Write a message...">
         </div>
         <div class="col">
-            <button class="float-end">Send</button>
+            <form action="/sendMessage" method="post">
+                <button class="float-end">Send</button>
+            </form>
         </div>
 
     </div>

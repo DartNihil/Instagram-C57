@@ -7,6 +7,12 @@ public class PrivateMessage {
     private User author;
     private String text;
 
+    public PrivateMessage(LocalDateTime dateTime, User author, String text) {
+        this.dateTime = dateTime;
+        this.author = author;
+        this.text = text;
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
