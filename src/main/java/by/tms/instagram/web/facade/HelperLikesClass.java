@@ -1,6 +1,6 @@
 package by.tms.instagram.web.facade;
 
-import by.tms.instagram.entity.Comment;
+import by.tms.instagram.entity.message.Comment;
 import by.tms.instagram.entity.Post;
 import by.tms.instagram.entity.User;
 

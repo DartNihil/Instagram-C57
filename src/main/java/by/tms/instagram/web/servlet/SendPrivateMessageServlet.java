@@ -1,6 +1,6 @@
 package by.tms.instagram.web.servlet;
 
-import by.tms.instagram.entity.PrivateMessage;
+import by.tms.instagram.entity.message.PrivateMessage;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.web.Constant;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @WebServlet("/sendMessage")
 public class SendPrivateMessageServlet extends HttpServlet {
@@ -26,12 +25,14 @@ public class SendPrivateMessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String message = req.getParameter("privateMessage");
-        User user = (User) req.getSession().getAttribute("user");
+        String nickname = req.getParameter("nickname");
+        User user = userService.findByNickName(nickname).get();
         User currentUser = (User) req.getSession().getAttribute("currentUser");
-        PrivateMessage privateMessage = new PrivateMessage(LocalDateTime.now(), user, message);
+        PrivateMessage privateMessage = new PrivateMessage(LocalDateTime.now(), currentUser, message);
         userService.addPrivateMessageInMap(currentUser, user, privateMessage);
         List<PrivateMessage> list = currentUser.getPrivateMessages().get(user);
         req.setAttribute("listOfPrivateMessages", list);
+        req.setAttribute("user", user);
         getServletContext().getRequestDispatcher(Constant.PRIVATE_MESSAGES_PAGE).forward(req, resp);
     }
 }

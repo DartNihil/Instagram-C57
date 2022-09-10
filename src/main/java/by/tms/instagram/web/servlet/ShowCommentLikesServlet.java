@@ -1,6 +1,6 @@
 package by.tms.instagram.web.servlet;
 
-import by.tms.instagram.entity.Comment;
+import by.tms.instagram.entity.message.Comment;
 import by.tms.instagram.entity.Post;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.service.CommentService;

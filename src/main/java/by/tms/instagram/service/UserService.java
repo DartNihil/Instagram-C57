@@ -1,8 +1,7 @@
 package by.tms.instagram.service;
 
 import by.tms.instagram.entity.Like;
-import by.tms.instagram.entity.Post;
-import by.tms.instagram.entity.PrivateMessage;
+import by.tms.instagram.entity.message.PrivateMessage;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.storage.InMemoryUserStorage;
 import by.tms.instagram.storage.UserStorage;

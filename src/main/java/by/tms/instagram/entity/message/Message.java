@@ -1,17 +1,13 @@
-package by.tms.instagram.entity;
+package by.tms.instagram.entity.message;
+
+import by.tms.instagram.entity.User;
 
 import java.time.LocalDateTime;
 
-public class PrivateMessage {
-    private LocalDateTime dateTime;
-    private User author;
-    private String text;
-
-    public PrivateMessage(LocalDateTime dateTime, User author, String text) {
-        this.dateTime = dateTime;
-        this.author = author;
-        this.text = text;
-    }
+public abstract class Message {
+    LocalDateTime dateTime;
+    User author;
+    String text;
 
     public LocalDateTime getDateTime() {
         return dateTime;

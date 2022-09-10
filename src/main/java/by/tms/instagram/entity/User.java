@@ -1,5 +1,7 @@
 package by.tms.instagram.entity;
 
+import by.tms.instagram.entity.message.PrivateMessage;
+
 import java.io.Serializable;
 import java.util.*;
 
