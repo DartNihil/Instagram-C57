@@ -17,6 +17,7 @@ import java.util.List;
 @WebServlet("/sendMessage")
 public class SendPrivateMessageServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher(Constant.PRIVATE_MESSAGES_PAGE).forward(req, resp);
@@ -30,6 +31,7 @@ public class SendPrivateMessageServlet extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         PrivateMessage privateMessage = new PrivateMessage(LocalDateTime.now(), currentUser, message);
         userService.addPrivateMessageInMap(currentUser, user, privateMessage);
+        userService.addPrivateMessageInMap(user, currentUser, privateMessage);
         List<PrivateMessage> list = currentUser.getPrivateMessages().get(user);
         req.setAttribute("listOfPrivateMessages", list);
         req.setAttribute("user", user);

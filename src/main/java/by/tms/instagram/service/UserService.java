@@ -69,12 +69,12 @@ public class UserService {
         return user.getLikesHistory();
     }
 
-    public void addPrivateMessageInMap(User currentUser, User user, PrivateMessage privateMessage) {
-        Map<User, List<PrivateMessage>> privateMessagesOfUser = currentUser.getPrivateMessages();
-        if (!privateMessagesOfUser.containsKey(user)) {
-            privateMessagesOfUser.put(user, new ArrayList<>());
+    public void addPrivateMessageInMap(User sendMessUser, User takeMessUser, PrivateMessage privateMessage) {
+        Map<User, List<PrivateMessage>> privateMessagesOfUser = sendMessUser.getPrivateMessages();
+        if (!privateMessagesOfUser.containsKey(takeMessUser)) {
+            privateMessagesOfUser.put(takeMessUser, new ArrayList<>());
         }
-        List<PrivateMessage> privateMessages = privateMessagesOfUser.get(user);
+        List<PrivateMessage> privateMessages = privateMessagesOfUser.get(takeMessUser);
         privateMessages.add(privateMessage);
     }
 }
