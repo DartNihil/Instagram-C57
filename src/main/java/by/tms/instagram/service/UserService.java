@@ -2,6 +2,7 @@ package by.tms.instagram.service;
 
 import by.tms.instagram.entity.Like;
 import by.tms.instagram.entity.Post;
+import by.tms.instagram.entity.PrivateMessage;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.storage.InMemoryUserStorage;
 import by.tms.instagram.storage.UserStorage;
@@ -44,12 +45,12 @@ public class UserService {
         user.setUserPhoto(null);
     }
 
-    public Set<User> checkCoincidencesInNamesAndSurnames(String in , long id) {
+    public Set<User> checkCoincidencesInNamesAndSurnames(String in, long id) {
         Set<User> setOfFoundUsers = new HashSet<>();
         if (in != null && !in.isEmpty()) {
             for (User user : storage.getUsers()) {
                 if (user.getName().contains(in) || user.getSurname().contains(in)) {
-                    if(user.getId() != id){
+                    if (user.getId() != id) {
                         setOfFoundUsers.add(user);
                     }
                 }
@@ -59,15 +60,21 @@ public class UserService {
     }
 
 
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return storage.getUsers();
     }
 
-    public Optional<User>findByNickName(String nickname){
+    public Optional<User> findByNickName(String nickname) {
         return storage.findByNickName(nickname);
-        }
+    }
+
     public List<Like> addLikeInHistory(User user, Like like) {
         user.getLikesHistory().add(like);
         return user.getLikesHistory();
+    }
+
+    public void addPrivateMessageInMap(User currentUser, User user, PrivateMessage privateMessage) {
+        List<PrivateMessage> privateMessages = currentUser.getPrivateMessages().get(user);
+        privateMessages.add(privateMessage);
     }
 }

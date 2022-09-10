@@ -194,6 +194,7 @@
                     </div>
                     <div class="col">
                         <form action="/privateMessage" method="post">
+                            <input type="hidden" name="nickname" value="${user.nickname}">
                             <button class="btn btn-outline-secondary">Text a message</button>
                         </form>
                     </div>

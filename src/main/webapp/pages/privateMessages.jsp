@@ -130,6 +130,14 @@
 </nav>
 
 <div class="container border border-secondary mt-5">
+    <div style="height: 100px" class="row">
+        <div class="col">
+            <img src="${user.userPhoto}"
+                 class="rounded-circle"
+                 height="40" width="40" alt="..."/>
+            ${user.name} ${user.surname}
+        </div>
+    </div>
     <div style="height: 500px" class="row">
 
     </div>
