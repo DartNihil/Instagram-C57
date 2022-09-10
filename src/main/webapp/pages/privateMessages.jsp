@@ -146,15 +146,15 @@
 </div>
 <div class="container">
     <div class="row mt-5">
+        <form action="/sendMessage" method="post">
         <div class="col-sm-7">
             <input size="100px" type="text" name="privateMessage" placeholder="Write a message...">
         </div>
         <div class="col">
-            <form action="/sendMessage" method="post">
                 <button class="float-end">Send</button>
-            </form>
-        </div>
 
+        </div>
+    </form>
     </div>
 </div>
 

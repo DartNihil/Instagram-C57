@@ -7,10 +7,7 @@ import by.tms.instagram.entity.User;
 import by.tms.instagram.storage.InMemoryUserStorage;
 import by.tms.instagram.storage.UserStorage;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class UserService {
     private static UserService instance;
@@ -74,7 +71,11 @@ public class UserService {
     }
 
     public void addPrivateMessageInMap(User currentUser, User user, PrivateMessage privateMessage) {
-        List<PrivateMessage> privateMessages = currentUser.getPrivateMessages().get(user);
+        Map<User, List<PrivateMessage>> privateMessagesOfUser = currentUser.getPrivateMessages();
+        if (!privateMessagesOfUser.containsKey(user)) {
+            privateMessagesOfUser.put(user, new ArrayList<>());
+        }
+        List<PrivateMessage> privateMessages = privateMessagesOfUser.get(user);
         privateMessages.add(privateMessage);
     }
 }
