@@ -181,61 +181,17 @@
                 </div>
                 <div class="card-footer bg-transparent border-success">
                     <form action="/sendMessage" method="post">
-                        <input class="form-control" type="text" name="privateMessage"
-                               placeholder="Write a message...">
+                        <label>
+                            <textarea cols="85" rows="3" name="privateMessage" placeholder="Write a message..."></textarea>
+                        </label>
                         <input type="hidden" name="nickname" value="${user.nickname}">
-                        <button class="btn btn-outline-info">Send</button>
+                        <button class="btn btn-outline-info float-end mt-2 mb-2">Send a message</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<%--<div style="height: max-content" class="container border border-secondary mt-5">--%>
-<%--    <div style="height: 60px" class="row border border-secondary">--%>
-<%--        <div class="col align-items-center">--%>
-<%--            <img src="${user.userPhoto}"--%>
-<%--                 class="rounded-circle"--%>
-<%--                 height="40" width="40" alt="..."/>--%>
-<%--            ${user.name} ${user.surname}--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--    <div class="row">--%>
-<%--        <c:forEach items="${listOfPrivateMessages}" var="message">--%>
-<%--            <c:if test="${message.author == currentUser}">--%>
-<%--                <div style="height: 45px" class="text-end">--%>
-<%--                    <img style="width: 40px; height: 40px" src="${message.author.userPhoto}" class="rounded-circle"--%>
-<%--                         alt="..."/> ${message.author.name}--%>
-<%--                        ${message.dateTime}--%>
-<%--                        ${message.text}--%>
-<%--                </div>--%>
-<%--            </c:if>--%>
-<%--            <c:if test="${message.author != currentUser}">--%>
-<%--                <div style="height: 45px">--%>
-<%--                    <img style="width: 40px; height: 40px" src="${message.author.userPhoto}" class="rounded-circle"--%>
-<%--                         alt="..."/> ${message.author.name}--%>
-<%--                        ${message.dateTime}--%>
-<%--                        ${message.text}--%>
-<%--                </div>--%>
-<%--            </c:if>--%>
-<%--        </c:forEach>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<%--<div class="container">--%>
-<%--    <div class="row mt-5">--%>
-<%--        <form action="/sendMessage" method="post">--%>
-<%--            <div class="col-sm-7">--%>
-<%--                <input class="form-control" type="text" name="privateMessage" placeholder="Write a message...">--%>
-<%--            </div>--%>
-<%--            <div class="col">--%>
-<%--                <input type="hidden" name="nickname" value="${user.nickname}">--%>
-<%--                <button class="float-end">Send</button>--%>
-
-<%--            </div>--%>
-<%--        </form>--%>
-<%--    </div>--%>
-<%--</div>--%>
 
 <%--Modal for nav--%>
 <div class="modal fade" id="likesHistoryModal" tabindex="-1" aria-labelledby="likesHistoryModalLabel"
