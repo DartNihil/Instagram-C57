@@ -193,6 +193,11 @@
                         </figure>
                     </div>
                     <div class="col">
+                        <form action="/privateMessage" method="post">
+                            <button class="btn btn-outline-secondary">Text a message</button>
+                        </form>
+                    </div>
+                    <div class="col">
                         <form>
                             <button type="button" class="btn btn-outline-secondary">Subscribe</button>
                         </form>
