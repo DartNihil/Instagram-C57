@@ -2,7 +2,6 @@ package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
 import by.tms.instagram.entity.UserComposite;
-import by.tms.instagram.entity.message.Message;
 import by.tms.instagram.entity.message.PrivateMessage;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.web.Constant;
@@ -13,10 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @WebServlet("/privateMessage")
 public class PrivateMessageServlet extends HttpServlet {

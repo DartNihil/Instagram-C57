@@ -44,11 +44,7 @@ public class LoginServlet extends HttpServlet {
                     req.getSession().setAttribute("currentUser", currentUser);
                     if(!currentUser.getPrivateMessages().isEmpty()) {
                         List<UserComposite> userComposites = userService.getSortedListOfUsersAndLastMessages(currentUser);
-                        User firstUserInUserComposites = userComposites.get(0).getUser();
-                        List<PrivateMessage> list = currentUser.getPrivateMessages().get(firstUserInUserComposites);
-                        req.setAttribute("listOfPrivateMessages", list);
                         req.setAttribute("listOfUserComposites", userComposites);
-                        req.setAttribute("user", firstUserInUserComposites);
                     }
                     getServletContext().getRequestDispatcher(CURRENT_USER_PAGE).forward(req, resp);
                 } else {
