@@ -24,7 +24,8 @@ public class SubscribeServlet extends HttpServlet {
         currentUser.getUserSubscriptions().add(user.get());
         user.get().getUserFollowers().add(currentUser);
 
-        req.setAttribute("user" , user.get());
+        req.setAttribute("user", user.get());
+        req.getSession().setAttribute("currentUser", currentUser);
         getServletContext().getRequestDispatcher(Constant.USER_PAGE).forward(req, resp);
     }
 }

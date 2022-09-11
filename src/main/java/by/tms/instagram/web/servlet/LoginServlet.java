@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-import static by.tms.instagram.web.Constant.CURRENT_USER_PAGE;
 
 
 @WebServlet(value = "/login", name = "LoginServlet")
@@ -23,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/pages/login.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher(Constant.LOGIN_PAGE).forward(req, resp);
     }
 
     @Override
@@ -38,7 +37,7 @@ public class LoginServlet extends HttpServlet {
             if (user.isPresent()) {
                 if (req.getParameter("password").equals(user.get().getPassword())) {
                     req.getSession().setAttribute("currentUser", user.get());
-                    getServletContext().getRequestDispatcher(CURRENT_USER_PAGE).forward(req, resp);
+                    getServletContext().getRequestDispatcher(Constant.CURRENT_USER_PAGE).forward(req, resp);
                 } else {
                     req.getServletContext().setAttribute("mess", "Wrong password");
                     resp.sendRedirect(req.getContextPath() + "/login");

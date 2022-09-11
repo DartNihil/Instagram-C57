@@ -12,9 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(value = "/unsubscribe" , name = "UnsubscribeServlet")
+@WebServlet(value = "/unsubscribe", name = "UnsubscribeServlet")
 public class UnsubscribeServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
@@ -23,7 +24,8 @@ public class UnsubscribeServlet extends HttpServlet {
         currentUser.getUserSubscriptions().remove(user.get());
         user.get().getUserFollowers().remove(currentUser);
 
-        req.setAttribute("user" , user.get());
-        getServletContext().getRequestDispatcher(Constant.USER_PAGE).forward(req , resp);
+        req.setAttribute("user", user.get());
+        req.getSession().setAttribute("currentUser", currentUser);
+        getServletContext().getRequestDispatcher(Constant.USER_PAGE).forward(req, resp);
     }
 }
