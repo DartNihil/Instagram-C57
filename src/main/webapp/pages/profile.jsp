@@ -192,11 +192,21 @@
                             <h1>${user.nickname}</h1>
                         </figure>
                     </div>
+
+                    <!-- Subscribe&&Unsubscribe button -->
                     <div class="col">
-                        <form>
-                            <button type="button" class="btn btn-outline-secondary">Subscribe</button>
-                        </form>
+                        <c:if test="${!currentUser.userSubscriptions.contains(user)}">
+                            <form>
+                                <button type="button" class="btn btn-outline-secondary">Subscribe</button>
+                            </form>
+                        </c:if>
+                        <c:if test="${currentUser.userSubscriptions.contains(user)}">
+                            <form>
+                                <button type="button" class="btn btn-outline-secondary">Unsubscribe</button>
+                            </form>
+                        </c:if>
                     </div>
+
                 </div>
                 <div class="row justify-content-center">
                     <div class="col mt-5">
