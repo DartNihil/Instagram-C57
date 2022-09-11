@@ -196,13 +196,15 @@
                     <!-- Subscribe&&Unsubscribe button -->
                     <div class="col">
                         <c:if test="${!currentUser.userSubscriptions.contains(user)}">
-                            <form>
-                                <button type="button" class="btn btn-outline-secondary">Subscribe</button>
+                            <form action="/subscribe">
+                                <button class="btn btn-outline-secondary"
+                                        name="nickname" value="${user.nickname}">Subscribe</button>
                             </form>
                         </c:if>
                         <c:if test="${currentUser.userSubscriptions.contains(user)}">
-                            <form>
-                                <button type="button" class="btn btn-outline-secondary">Unsubscribe</button>
+                            <form action="/unsubscribe">
+                                <button class="btn btn-outline-secondary"
+                                        name="nickname" value="${user.nickname}">Unsubscribe</button>
                             </form>
                         </c:if>
                     </div>

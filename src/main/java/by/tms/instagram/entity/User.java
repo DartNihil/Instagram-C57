@@ -16,8 +16,8 @@ public class User implements Serializable {
     private String password;
     private String userPhoto;
     private final List<Post> userPosts = new ArrayList<>();
-    private final List<User> userFollowers = new ArrayList<>();
-    private final List<User> userSubscriptions = new ArrayList<>();
+    private static final List<User> userFollowers = new ArrayList<>();
+    private static final List<User> userSubscriptions = new ArrayList<>();
     private final List<Like> likesHistory = new ArrayList<>();
     private long userRoleID;
     private long userStatusID;
