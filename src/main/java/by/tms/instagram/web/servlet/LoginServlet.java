@@ -1,6 +1,8 @@
 package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
+import by.tms.instagram.entity.UserComposite;
+import by.tms.instagram.entity.message.PrivateMessage;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.service.validator.RegistrationValidator;
 import by.tms.instagram.web.Constant;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import static by.tms.instagram.web.Constant.CURRENT_USER_PAGE;
@@ -37,7 +40,16 @@ public class LoginServlet extends HttpServlet {
             Optional<User> user = userService.findByNickName(req.getParameter("nickname"));
             if (user.isPresent()) {
                 if (req.getParameter("password").equals(user.get().getPassword())) {
-                    req.getSession().setAttribute("currentUser", user.get());
+                    User currentUser = user.get();
+                    req.getSession().setAttribute("currentUser", currentUser);
+                    if(!currentUser.getPrivateMessages().isEmpty()) {
+                        List<UserComposite> userComposites = userService.getSortedListOfUsersAndLastMessages(currentUser);
+                        User firstUserInUserComposites = userComposites.get(0).getUser();
+                        List<PrivateMessage> list = currentUser.getPrivateMessages().get(firstUserInUserComposites);
+                        req.setAttribute("listOfPrivateMessages", list);
+                        req.setAttribute("listOfUserComposites", userComposites);
+                        req.setAttribute("user", firstUserInUserComposites);
+                    }
                     getServletContext().getRequestDispatcher(CURRENT_USER_PAGE).forward(req, resp);
                 } else {
                     req.getServletContext().setAttribute("mess", "Wrong password");

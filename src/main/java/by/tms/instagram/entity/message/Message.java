@@ -3,6 +3,7 @@ package by.tms.instagram.entity.message;
 import by.tms.instagram.entity.User;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public abstract class Message {
     LocalDateTime dateTime;
@@ -31,5 +32,11 @@ public abstract class Message {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getFormatDateTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm\ndd.MM.yyyy");
+        String formatDateTime = dtf.format(dateTime);
+        return formatDateTime;
     }
 }

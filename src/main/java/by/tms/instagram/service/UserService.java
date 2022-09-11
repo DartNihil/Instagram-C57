@@ -1,11 +1,15 @@
 package by.tms.instagram.service;
 
 import by.tms.instagram.entity.Like;
+import by.tms.instagram.entity.UserComposite;
+import by.tms.instagram.entity.message.Message;
 import by.tms.instagram.entity.message.PrivateMessage;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.storage.InMemoryUserStorage;
 import by.tms.instagram.storage.UserStorage;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 import java.util.*;
 
 public class UserService {
@@ -76,5 +80,28 @@ public class UserService {
         }
         List<PrivateMessage> privateMessages = privateMessagesOfUser.get(takeMessUser);
         privateMessages.add(privateMessage);
+    }
+
+    public List<UserComposite> getSortedListOfUsersAndLastMessages(User currentUser) {
+        Map<User, List<PrivateMessage>> privateMessages = currentUser.getPrivateMessages();
+        ArrayList<UserComposite> sortedUsers = new ArrayList<>();
+        for (User key : privateMessages.keySet()) {
+            List<PrivateMessage> privateMessagesOfUser = privateMessages.get(key);
+            Message lastMessageWithUser = privateMessagesOfUser.get(privateMessagesOfUser.size() - 1);
+            UserComposite userComposite = new UserComposite(key, lastMessageWithUser);
+            sortedUsers.add(userComposite);
+        }
+        return sortedUsers.stream().sorted((o1, o2) -> {
+            int result = 0;
+            LocalDateTime localDateTimeO1 = o1.getLastMessageWithUser().getDateTime();
+            LocalDateTime localDateTimeO2 = o2.getLastMessageWithUser().getDateTime();
+            if (localDateTimeO2.isAfter(localDateTimeO2)) {
+                result = 1;
+            }
+            if (localDateTimeO1.isAfter(localDateTimeO2)) {
+                result = -1;
+            }
+            return result;
+        }).toList();
     }
 }

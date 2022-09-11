@@ -18,6 +18,7 @@ public class FoundUserProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println(req.getParameter("nickname"));
         Optional<User> user = userService.findByNickName(req.getParameter("nickname"));
         user.ifPresent(value -> req.setAttribute("user", value));
         req.getServletContext().getRequestDispatcher(Constant.USER_PAGE).forward(req, resp);

@@ -1,5 +1,6 @@
 package by.tms.instagram.web.servlet;
 
+import by.tms.instagram.entity.UserComposite;
 import by.tms.instagram.entity.message.PrivateMessage;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.service.UserService;
@@ -32,8 +33,10 @@ public class SendPrivateMessageServlet extends HttpServlet {
         PrivateMessage privateMessage = new PrivateMessage(LocalDateTime.now(), currentUser, message);
         userService.addPrivateMessageInMap(currentUser, user, privateMessage);
         userService.addPrivateMessageInMap(user, currentUser, privateMessage);
+        List<UserComposite> userComposites = userService.getSortedListOfUsersAndLastMessages(currentUser);
         List<PrivateMessage> list = currentUser.getPrivateMessages().get(user);
         req.setAttribute("listOfPrivateMessages", list);
+        req.setAttribute("listOfUserComposites", userComposites);
         req.setAttribute("user", user);
         getServletContext().getRequestDispatcher(Constant.PRIVATE_MESSAGES_PAGE).forward(req, resp);
     }
