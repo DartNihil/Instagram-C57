@@ -3,6 +3,7 @@ package by.tms.instagram.web.servlet;
 import by.tms.instagram.entity.User;
 import by.tms.instagram.entity.UserComposite;
 import by.tms.instagram.entity.message.PrivateMessage;
+import by.tms.instagram.service.MessageService;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.web.Constant;
 
@@ -17,6 +18,7 @@ import java.util.List;
 @WebServlet("/privateMessage")
 public class PrivateMessageServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
+    private final MessageService messageService = MessageService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,9 +26,12 @@ public class PrivateMessageServlet extends HttpServlet {
         String nickname = req.getParameter("nickname");
         User user = userService.findByNickName(nickname).get();
         List<UserComposite> userComposites = userService.getSortedListOfUsersAndLastMessages(currentUser);
-        List<PrivateMessage> list = currentUser.getPrivateMessages().get(user);
+        List<PrivateMessage> listOfCurrentUser = currentUser.getPrivateMessages().get(user);
+        List<PrivateMessage> listOfUser = currentUser.getPrivateMessages().get(currentUser);
+        List<PrivateMessage> privateMessagesOfCurrentUser = messageService.setIsReadMessage(listOfCurrentUser, user);
+        messageService.setIsReadMessage(listOfUser, currentUser);
         req.setAttribute("listOfUserComposites", userComposites);
-        req.setAttribute("listOfPrivateMessages", list);
+        req.setAttribute("listOfPrivateMessages", privateMessagesOfCurrentUser);
         req.setAttribute("user", user);
         getServletContext().getRequestDispatcher(Constant.PRIVATE_MESSAGES_PAGE).forward(req, resp);
     }

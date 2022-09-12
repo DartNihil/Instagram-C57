@@ -159,7 +159,12 @@
                                     <strong>${userComposite.user.name} ${userComposite.user.surname}</strong></p>
                             </a>
                             <p><em>${userComposite.lastMessageWithUser.getFormatDateTime()}</em></p>
-                            <p>${userComposite.lastMessageWithUser.text}</p>
+                            <c:if test="${!userComposite.lastMessageWithUser.isRead()}">
+                                <p><mark>${userComposite.lastMessageWithUser.text}</mark></p>
+                            </c:if>
+                            <c:if test="${userComposite.lastMessageWithUser.isRead()}">
+                                <p>${userComposite.lastMessageWithUser.text}</p>
+                            </c:if>
                         </div>
                     </c:forEach>
 
@@ -176,7 +181,6 @@
 
                 </div>
                 <div style="height: 600px; overflow-y: scroll" class="card-body">
-
                         <c:forEach items="${listOfPrivateMessages}" var="message">
                             <c:if test="${message.author == currentUser}">
                                 <div class="row text-end">
@@ -187,7 +191,12 @@
                                                  alt="..."/></p>
                                     </a>
                                     <p><em>${message.getFormatDateTime()}</em></p>
-                                    <p class="h4">${message.text}</p>
+                                    <c:if test="${!message.isRead()}">
+                                        <p class="h4"><mark>${message.text}</mark></p>
+                                    </c:if>
+                                    <c:if test="${message.isRead()}">
+                                        <p class="h4">${message.text}</p>
+                                    </c:if>
                                 </div>
                             </c:if>
                             <c:if test="${message.author != currentUser}">
@@ -204,7 +213,6 @@
                                 </div>
                             </c:if>
                         </c:forEach>
-
                 </div>
                 <div class="card-footer bg-transparent border-secondary">
                     <form action="/sendMessage" method="post">

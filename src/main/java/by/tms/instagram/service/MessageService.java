@@ -4,19 +4,22 @@ import by.tms.instagram.entity.message.Comment;
 import by.tms.instagram.entity.Like;
 import by.tms.instagram.entity.Post;
 import by.tms.instagram.entity.User;
+import by.tms.instagram.entity.message.Message;
+import by.tms.instagram.entity.message.PrivateMessage;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class CommentService {
+public class MessageService {
     private UserService userService = UserService.getInstance();
-    private static CommentService instance;
+    private static MessageService instance;
 
-    private CommentService() {
+    private MessageService() {
     }
 
-    public static CommentService getInstance() {
+    public static MessageService getInstance() {
         if (instance == null) {
-            instance = new CommentService();
+            instance = new MessageService();
         }
         return instance;
     }
@@ -49,5 +52,16 @@ public class CommentService {
             }
         }
         return comment;
+    }
+
+    public List<PrivateMessage> setIsReadMessage(List<PrivateMessage> privateMessages, User user) {
+        if (privateMessages != null){
+            for (PrivateMessage message:privateMessages) {
+                if(message.getAuthor().equals(user) && !message.isRead()) {
+                    message.setRead(true);
+                }
+            }
+        }
+        return privateMessages;
     }
 }

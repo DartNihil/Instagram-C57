@@ -31,6 +31,7 @@ public class SendPrivateMessageServlet extends HttpServlet {
         User user = userService.findByNickName(nickname).get();
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         PrivateMessage privateMessage = new PrivateMessage(LocalDateTime.now(), currentUser, message);
+        privateMessage.setRead(false);
         userService.addPrivateMessageInMap(currentUser, user, privateMessage);
         userService.addPrivateMessageInMap(user, currentUser, privateMessage);
         List<UserComposite> userComposites = userService.getSortedListOfUsersAndLastMessages(currentUser);
