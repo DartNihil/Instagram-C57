@@ -8,7 +8,9 @@ import by.tms.instagram.entity.message.Message;
 import by.tms.instagram.entity.message.PrivateMessage;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MessageService {
     private UserService userService = UserService.getInstance();
@@ -63,5 +65,18 @@ public class MessageService {
             }
         }
         return privateMessages;
+    }
+    public int getCountOfUnreadMessages(User currentUser) {
+        int count = 0;
+        Map<User, List<PrivateMessage>> privateMessages = currentUser.getPrivateMessages();
+        for (User user : privateMessages.keySet()) {
+            List<PrivateMessage> list = privateMessages.get(user);
+            for (PrivateMessage message:list) {
+                if(!message.isRead()) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
