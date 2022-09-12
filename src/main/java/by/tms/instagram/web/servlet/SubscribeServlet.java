@@ -21,11 +21,12 @@ public class SubscribeServlet extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         Optional<User> user = userService.findByNickName(req.getParameter("nickname"));
 
-        currentUser.getUserSubscriptions().add(user.get());
-        user.get().getUserFollowers().add(currentUser);
-
-        req.setAttribute("user", user.get());
-        req.getSession().setAttribute("currentUser", currentUser);
-        getServletContext().getRequestDispatcher(Constant.USER_PAGE).forward(req, resp);
+        if (user.isPresent()) {
+            userService.addUserSubscriptions(currentUser, user.get());
+            userService.addUserFollowers(user.get(), currentUser);
+            req.setAttribute("user", user.get());
+            req.getSession().setAttribute("currentUser", currentUser);
+            getServletContext().getRequestDispatcher(Constant.USER_PAGE).forward(req, resp);
+        }
     }
 }

@@ -21,11 +21,12 @@ public class UnsubscribeServlet extends HttpServlet {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
         Optional<User> user = userService.findByNickName(req.getParameter("nickname"));
 
-        currentUser.getUserSubscriptions().remove(user.get());
-        user.get().getUserFollowers().remove(currentUser);
-
-        req.setAttribute("user", user.get());
-        req.getSession().setAttribute("currentUser", currentUser);
-        getServletContext().getRequestDispatcher(Constant.USER_PAGE).forward(req, resp);
+        if (user.isPresent()) {
+            userService.removeUserSubscriptions(currentUser, user.get());
+            userService.removeUserFollowers(user.get(), currentUser);
+            req.setAttribute("user", user.get());
+            req.getSession().setAttribute("currentUser", currentUser);
+            getServletContext().getRequestDispatcher(Constant.USER_PAGE).forward(req, resp);
+        }
     }
 }
