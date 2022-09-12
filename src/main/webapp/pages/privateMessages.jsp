@@ -148,62 +148,69 @@
     <div class="card mb-3">
         <div class="row g-0">
             <div style="overflow-y: scroll" class="col-md-4 border border-dark">
-                <c:forEach items="${listOfUserComposites}" var="userComposite">
-                    <div class="row border border-secondary">
-                        <a href="/foundUserProfile?nickname=${userComposite.user.nickname}" class="text-decoration-none text-reset">
-                            <p><img style="width: 40px; height: 40px" src="${userComposite.user.userPhoto}"
-                                    class="rounded-circle"
-                                    alt="..."/>
-                                <strong>${userComposite.user.name} ${userComposite.user.surname}</strong></p>
-                        </a>
-                        <p><em>${userComposite.lastMessageWithUser.getFormatDateTime()}</em></p>
-                        <p>${userComposite.lastMessageWithUser.text}</p>
-                    </div>
-                </c:forEach>
+
+                    <c:forEach items="${listOfUserComposites}" var="userComposite">
+                        <div class="row border border-secondary">
+                            <a href="/foundUserProfile?nickname=${userComposite.user.nickname}"
+                               class="text-decoration-none text-reset">
+                                <p><img style="width: 40px; height: 40px" src="${userComposite.user.userPhoto}"
+                                        class="rounded-circle"
+                                        alt="..."/>
+                                    <strong>${userComposite.user.name} ${userComposite.user.surname}</strong></p>
+                            </a>
+                            <p><em>${userComposite.lastMessageWithUser.getFormatDateTime()}</em></p>
+                            <p>${userComposite.lastMessageWithUser.text}</p>
+                        </div>
+                    </c:forEach>
+
             </div>
             <div class="col-md-8 border border-secondary">
                 <div class="card-header bg-transparent border-success">
-                    <a href="/foundUserProfile?nickname=${user.nickname}" class="text-decoration-none text-reset">
-                        <img src="${user.userPhoto}"
-                             class="rounded-circle"
-                             height="40" width="40" alt="..."/>
-                        <strong>${user.name} ${user.surname}</strong>
-                    </a>
+
+                        <a href="/foundUserProfile?nickname=${user.nickname}" class="text-decoration-none text-reset">
+                            <img src="${user.userPhoto}"
+                                 class="rounded-circle"
+                                 height="40" width="40" alt="..."/>
+                            <strong>${user.name} ${user.surname}</strong>
+                        </a>
+
                 </div>
                 <div style="height: 600px; overflow-y: scroll" class="card-body">
-                    <c:forEach items="${listOfPrivateMessages}" var="message">
-                        <c:if test="${message.author == currentUser}">
-                            <div class="row text-end">
-                                <a href="/pages/currentUserProfile.jsp" class="text-decoration-none text-reset">
-                                    <p><strong>${message.author.name} ${message.author.surname}</strong>
-                                        <img style="width: 40px; height: 40px" src="${message.author.userPhoto}"
-                                             class="rounded-circle"
-                                             alt="..."/></p>
-                                </a>
-                                <p><em>${message.getFormatDateTime()}</em></p>
-                                <p class="h4">${message.text}</p>
-                            </div>
-                        </c:if>
-                        <c:if test="${message.author != currentUser}">
-                            <div class="row">
-                                <a href="/foundUserProfile?nickname=${message.author.nickname}"
-                                   class="text-decoration-none text-reset">
-                                    <p><img style="width: 40px; height: 40px" src="${message.author.userPhoto}"
-                                            class="rounded-circle"
-                                            alt="..."/>
-                                        <strong>${message.author.name} ${message.author.surname}</strong></p>
-                                </a>
-                                <p><em>${message.getFormatDateTime()}</em></p>
-                                <p class="h4">${message.text}</p>
-                            </div>
-                        </c:if>
-                    </c:forEach>
+
+                        <c:forEach items="${listOfPrivateMessages}" var="message">
+                            <c:if test="${message.author == currentUser}">
+                                <div class="row text-end">
+                                    <a href="/pages/currentUserProfile.jsp" class="text-decoration-none text-reset">
+                                        <p><strong>${message.author.name} ${message.author.surname}</strong>
+                                            <img style="width: 40px; height: 40px" src="${message.author.userPhoto}"
+                                                 class="rounded-circle"
+                                                 alt="..."/></p>
+                                    </a>
+                                    <p><em>${message.getFormatDateTime()}</em></p>
+                                    <p class="h4">${message.text}</p>
+                                </div>
+                            </c:if>
+                            <c:if test="${message.author != currentUser}">
+                                <div class="row">
+                                    <a href="/foundUserProfile?nickname=${message.author.nickname}"
+                                       class="text-decoration-none text-reset">
+                                        <p><img style="width: 40px; height: 40px" src="${message.author.userPhoto}"
+                                                class="rounded-circle"
+                                                alt="..."/>
+                                            <strong>${message.author.name} ${message.author.surname}</strong></p>
+                                    </a>
+                                    <p><em>${message.getFormatDateTime()}</em></p>
+                                    <p class="h4">${message.text}</p>
+                                </div>
+                            </c:if>
+                        </c:forEach>
+
                 </div>
                 <div class="card-footer bg-transparent border-secondary">
                     <form action="/sendMessage" method="post">
                         <label>
-                            <textarea cols="85" rows="3" name="privateMessage"
-                                      placeholder="Write a message..."></textarea>
+    <textarea cols="85" rows="3" name="privateMessage"
+              placeholder="Write a message..."></textarea>
                         </label>
                         <input type="hidden" name="nickname" value="${user.nickname}">
                         <button class="btn btn-outline-info float-end mt-2 mb-2">Send a message</button>
