@@ -1,12 +1,9 @@
 package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
-import by.tms.instagram.entity.UserComposite;
-import by.tms.instagram.entity.message.PrivateMessage;
 import by.tms.instagram.service.MessageService;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.service.validator.RegistrationValidator;
-import by.tms.instagram.web.Constant;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 import static by.tms.instagram.web.Constant.CURRENT_USER_PAGE;

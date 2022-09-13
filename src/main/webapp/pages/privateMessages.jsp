@@ -148,6 +148,7 @@ To change this template use File | Settings | File Templates.
             <div style="overflow-y: scroll" class="col-md-4 border border-dark">
                 <c:forEach items="${listOfUserComposites}" var="userComposite">
                     <div class="row border border-secondary">
+
                         <a href="/foundUserProfile?nickname=${userComposite.user.nickname}"
                            class="text-decoration-none text-reset">
                             <p><c:if test="${userComposite.user.userPhoto == null}">
@@ -159,7 +160,12 @@ To change this template use File | Settings | File Templates.
                                          class="rounded-circle border border-secondary"
                                          height="40" width="40" alt=""/>
                                 </c:if>
-                                <strong>${userComposite.user.name} ${userComposite.user.surname}</strong></p>
+                                <c:if test="${userComposite.countOfUnreadMessages > 0}">
+                                    <strong>${userComposite.user.name} ${userComposite.user.surname} <em class="text-primary">${userComposite.countOfUnreadMessages}</em></strong></p>
+                                </c:if>
+                                <c:if test="${userComposite.countOfUnreadMessages == 0}">
+                                    <strong>${userComposite.user.name} ${userComposite.user.surname}</strong></p>
+                                </c:if>
                         </a>
                         <a href="/privateMessage?nickname=${userComposite.user.nickname}"
                            class="text-decoration-none text-reset">

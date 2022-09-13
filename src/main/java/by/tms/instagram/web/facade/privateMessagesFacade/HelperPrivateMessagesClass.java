@@ -1,17 +1,17 @@
 package by.tms.instagram.web.facade.privateMessagesFacade;
 
 import by.tms.instagram.entity.User;
-import by.tms.instagram.entity.UserComposite;
+import by.tms.instagram.entity.UserHelperComposite;
 import by.tms.instagram.entity.message.PrivateMessage;
 
 import java.util.List;
 
 public class HelperPrivateMessagesClass {
     private User user;
-    List<UserComposite> userComposites;
+    List<UserHelperComposite> userComposites;
     private List<PrivateMessage> privateMessagesOfCurrentUser;
 
-    public HelperPrivateMessagesClass(User user, List<UserComposite> userComposites, List<PrivateMessage> privateMessagesOfCurrentUser) {
+    public HelperPrivateMessagesClass(User user, List<UserHelperComposite> userComposites, List<PrivateMessage> privateMessagesOfCurrentUser) {
         this.user = user;
         this.userComposites = userComposites;
         this.privateMessagesOfCurrentUser = privateMessagesOfCurrentUser;
@@ -25,11 +25,11 @@ public class HelperPrivateMessagesClass {
         this.user = user;
     }
 
-    public List<UserComposite> getUserComposites() {
+    public List<UserHelperComposite> getUserComposites() {
         return userComposites;
     }
 
-    public void setUserComposites(List<UserComposite> userComposites) {
+    public void setUserComposites(List<UserHelperComposite> userComposites) {
         this.userComposites = userComposites;
     }
 
