@@ -397,7 +397,7 @@
     </div>
 </div>
 
-<%--nav modal--%>
+<%--nav modals--%>
 <div class="modal fade" id="likesHistoryModal" tabindex="-1" aria-labelledby="likesHistoryModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">
