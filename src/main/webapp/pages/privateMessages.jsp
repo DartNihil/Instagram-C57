@@ -158,6 +158,8 @@
                                         alt="..."/>
                                     <strong>${userComposite.user.name} ${userComposite.user.surname}</strong></p>
                             </a>
+                            <a href="/privateMessage?nickname=${userComposite.user.nickname}"
+                                                           class="text-decoration-none text-reset">
                             <p><em>${userComposite.lastMessageWithUser.getFormatDateTime()}</em></p>
                             <c:if test="${!userComposite.lastMessageWithUser.isRead()}">
                                 <p><mark>${userComposite.lastMessageWithUser.text}</mark></p>
@@ -165,6 +167,7 @@
                             <c:if test="${userComposite.lastMessageWithUser.isRead()}">
                                 <p>${userComposite.lastMessageWithUser.text}</p>
                             </c:if>
+                            </a>
                         </div>
                     </c:forEach>
 

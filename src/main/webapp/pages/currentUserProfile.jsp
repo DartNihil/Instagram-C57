@@ -216,7 +216,7 @@
             </div>
             <div class="mt-5">
                 <c:if test="${sessionScope.currentUser.getCountOfUnreadMessages() > 0}">
-                    <a href="/privateMessage">
+                    <a href="/privateMessage" class="text-decoration-none text-reset">
                         <h3>New private messages: ${sessionScope.currentUser.getCountOfUnreadMessages()}</h3>
                     </a>
                 </c:if>
