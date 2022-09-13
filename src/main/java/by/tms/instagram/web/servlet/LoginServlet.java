@@ -42,15 +42,7 @@ public class LoginServlet extends HttpServlet {
             Optional<User> user = userService.findByNickName(req.getParameter("nickname"));
             if (user.isPresent()) {
                 if (req.getParameter("password").equals(user.get().getPassword())) {
-                    User currentUser = user.get();
-                    req.getSession().setAttribute("currentUser", currentUser);
-                    if(currentUser.getPrivateMessages() != null) {
-
-                        List<UserComposite> userComposites = userService.getSortedListOfUsersAndLastMessages(currentUser);
-                        req.setAttribute("listOfUserComposites", userComposites);
-                        int countOfUnreadMessages = messageService.getCountOfUnreadMessages(currentUser);
-                        req.setAttribute("countOfUnreadMessages", countOfUnreadMessages);
-                    }
+                    req.getSession().setAttribute("currentUser", user.get());
                     getServletContext().getRequestDispatcher(CURRENT_USER_PAGE).forward(req, resp);
                 } else {
                     req.getServletContext().setAttribute("mess", "Wrong password");

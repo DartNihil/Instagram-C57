@@ -23,9 +23,14 @@ public class PrivateMessageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User currentUser = (User) req.getSession().getAttribute("currentUser");
-        String nickname = req.getParameter("nickname");
-        User user = userService.findByNickName(nickname).get();
         List<UserComposite> userComposites = userService.getSortedListOfUsersAndLastMessages(currentUser);
+        String nickname = req.getParameter("nickname");
+        User user;
+        if(nickname != null) {
+            user = userService.findByNickName(nickname).get();
+        } else {
+            user = userComposites.get(0).getUser();
+        }
         List<PrivateMessage> listOfCurrentUser = currentUser.getPrivateMessages().get(user);
         List<PrivateMessage> listOfUser = currentUser.getPrivateMessages().get(currentUser);
         List<PrivateMessage> privateMessagesOfCurrentUser = messageService.setIsReadMessage(listOfCurrentUser, user);

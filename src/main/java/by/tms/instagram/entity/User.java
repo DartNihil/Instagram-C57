@@ -135,6 +135,18 @@ public class User implements Serializable {
         Collections.reverse(likesHistory);
         return likesHistory;
     }
+    public int getCountOfUnreadMessages() {
+        int count = 0;
+        for (User user : privateMessages.keySet()) {
+            List<PrivateMessage> list = privateMessages.get(user);
+            for (PrivateMessage message:list) {
+                if(message.getAuthor().equals(user) && !message.isRead()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

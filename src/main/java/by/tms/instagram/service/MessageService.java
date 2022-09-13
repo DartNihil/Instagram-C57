@@ -66,17 +66,5 @@ public class MessageService {
         }
         return privateMessages;
     }
-    public int getCountOfUnreadMessages(User currentUser) {
-        int count = 0;
-        Map<User, List<PrivateMessage>> privateMessages = currentUser.getPrivateMessages();
-        for (User user : privateMessages.keySet()) {
-            List<PrivateMessage> list = privateMessages.get(user);
-            for (PrivateMessage message:list) {
-                if(!message.isRead()) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
+
 }
