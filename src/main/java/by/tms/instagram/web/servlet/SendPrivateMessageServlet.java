@@ -35,7 +35,6 @@ public class SendPrivateMessageServlet extends HttpServlet {
         userService.addPrivateMessageInMap(currentUser, user, privateMessage);
         userService.addPrivateMessageInMap(user, currentUser, privateMessage);
         List<UserComposite> userComposites = userService.getSortedListOfUsersAndLastMessages(currentUser);
-
         List<PrivateMessage> list = currentUser.getPrivateMessages().get(user);
         req.setAttribute("listOfPrivateMessages", list);
         req.setAttribute("listOfUserComposites", userComposites);

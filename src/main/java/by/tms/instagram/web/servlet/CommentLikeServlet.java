@@ -2,8 +2,8 @@ package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
 import by.tms.instagram.web.Constant;
-import by.tms.instagram.web.facade.HelperLikesClass;
-import by.tms.instagram.web.facade.LikesFacade;
+import by.tms.instagram.web.facade.likesFacade.HelperLikesClass;
+import by.tms.instagram.web.facade.likesFacade.LikesFacade;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

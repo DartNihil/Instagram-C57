@@ -1,12 +1,9 @@
 package by.tms.instagram.web.servlet;
 
-import by.tms.instagram.entity.Post;
 import by.tms.instagram.entity.User;
-import by.tms.instagram.service.PostService;
-import by.tms.instagram.service.UserService;
 import by.tms.instagram.web.Constant;
-import by.tms.instagram.web.facade.HelperLikesClass;
-import by.tms.instagram.web.facade.LikesFacade;
+import by.tms.instagram.web.facade.likesFacade.HelperLikesClass;
+import by.tms.instagram.web.facade.likesFacade.LikesFacade;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
 
 @WebServlet("/postLike")
 public class PostLikeServlet extends HttpServlet {
