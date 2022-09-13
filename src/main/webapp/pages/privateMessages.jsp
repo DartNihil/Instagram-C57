@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 10.09.2022
-  Time: 10:10
-  To change this template use File | Settings | File Templates.
+Created by IntelliJ IDEA.
+User: Admin
+Date: 10.09.2022
+Time: 10:10
+To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -135,10 +135,8 @@
                                         Logout </a></li>
                                 </ul>
                             </li>
-
                         </ul>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -148,80 +146,105 @@
     <div class="card mb-3">
         <div class="row g-0">
             <div style="overflow-y: scroll" class="col-md-4 border border-dark">
-
-                    <c:forEach items="${listOfUserComposites}" var="userComposite">
-                        <div class="row border border-secondary">
-                            <a href="/foundUserProfile?nickname=${userComposite.user.nickname}"
-                               class="text-decoration-none text-reset">
-                                <p><img style="width: 40px; height: 40px" src="${userComposite.user.userPhoto}"
-                                        class="rounded-circle"
-                                        alt="..."/>
-                                    <strong>${userComposite.user.name} ${userComposite.user.surname}</strong></p>
-                            </a>
-                            <a href="/privateMessage?nickname=${userComposite.user.nickname}"
-                                                           class="text-decoration-none text-reset">
+                <c:forEach items="${listOfUserComposites}" var="userComposite">
+                    <div class="row border border-secondary">
+                        <a href="/foundUserProfile?nickname=${userComposite.user.nickname}"
+                           class="text-decoration-none text-reset">
+                            <p><c:if test="${userComposite.user.userPhoto == null}">
+                                    <img src="https://img.freepik.com/premium-vector/figure-of-a-person-hand-drawn-outline-doodle-icon-sketch-illustration-of-a-standing-figure-for-print-web-mobile-and-infographics-isolated-on-white-background_107173-17483.jpg"
+                                         class="rounded-circle border border-secondary" height="40" width="40" alt=""/>
+                                </c:if>
+                                <c:if test="${userComposite.user.userPhoto != null}">
+                                    <img src="${userComposite.user.userPhoto}"
+                                         class="rounded-circle border border-secondary"
+                                         height="40" width="40" alt=""/>
+                                </c:if>
+                                <strong>${userComposite.user.name} ${userComposite.user.surname}</strong></p>
+                        </a>
+                        <a href="/privateMessage?nickname=${userComposite.user.nickname}"
+                           class="text-decoration-none text-reset">
                             <p><em>${userComposite.lastMessageWithUser.getFormatDateTime()}</em></p>
                             <c:if test="${!userComposite.lastMessageWithUser.isRead()}">
-                                <p><mark>${userComposite.lastMessageWithUser.text}</mark></p>
+                                <p>
+                                    <mark>${userComposite.lastMessageWithUser.text}</mark>
+                                </p>
                             </c:if>
                             <c:if test="${userComposite.lastMessageWithUser.isRead()}">
                                 <p>${userComposite.lastMessageWithUser.text}</p>
                             </c:if>
-                            </a>
-                        </div>
-                    </c:forEach>
-
+                        </a>
+                    </div>
+                </c:forEach>
             </div>
             <div class="col-md-8 border border-secondary">
                 <div class="card-header bg-transparent border-success">
-
-                        <a href="/foundUserProfile?nickname=${user.nickname}" class="text-decoration-none text-reset">
-                            <img src="${user.userPhoto}"
-                                 class="rounded-circle"
-                                 height="40" width="40" alt="..."/>
-                            <strong>${user.name} ${user.surname}</strong>
-                        </a>
-
+                    <a href="/foundUserProfile?nickname=${user.nickname}" class="text-decoration-none text-reset">
+                        <c:if test="${user.userPhoto == null}">
+                            <img src="https://img.freepik.com/premium-vector/figure-of-a-person-hand-drawn-outline-doodle-icon-sketch-illustration-of-a-standing-figure-for-print-web-mobile-and-infographics-isolated-on-white-background_107173-17483.jpg"
+                                 class="rounded-circle border border-secondary" height="40" width="40" alt=""/>
+                        </c:if>
+                        <c:if test="${user.userPhoto != null}">
+                            <img src="${user.userPhoto}" class="rounded-circle border border-secondary"
+                                 height="40" width="40" alt=""/>
+                        </c:if>
+                        <strong>${user.name} ${user.surname}</strong>
+                    </a>
                 </div>
                 <div style="height: 600px; overflow-y: scroll" class="card-body">
-                        <c:forEach items="${listOfPrivateMessages}" var="message">
-                            <c:if test="${message.author == currentUser}">
-                                <div class="row text-end">
-                                    <a href="/pages/currentUserProfile.jsp" class="text-decoration-none text-reset">
-                                        <p><strong>${message.author.name} ${message.author.surname}</strong>
-                                            <img style="width: 40px; height: 40px" src="${message.author.userPhoto}"
-                                                 class="rounded-circle"
-                                                 alt="..."/></p>
-                                    </a>
-                                    <p><em>${message.getFormatDateTime()}</em></p>
-                                    <c:if test="${!message.isRead()}">
-                                        <p class="h4"><mark>${message.text}</mark></p>
-                                    </c:if>
-                                    <c:if test="${message.isRead()}">
-                                        <p class="h4">${message.text}</p>
-                                    </c:if>
-                                </div>
-                            </c:if>
-                            <c:if test="${message.author != currentUser}">
-                                <div class="row">
-                                    <a href="/foundUserProfile?nickname=${message.author.nickname}"
-                                       class="text-decoration-none text-reset">
-                                        <p><img style="width: 40px; height: 40px" src="${message.author.userPhoto}"
-                                                class="rounded-circle"
-                                                alt="..."/>
-                                            <strong>${message.author.name} ${message.author.surname}</strong></p>
-                                    </a>
-                                    <p><em>${message.getFormatDateTime()}</em></p>
+                    <c:forEach items="${listOfPrivateMessages}" var="message">
+                        <c:if test="${message.author == currentUser}">
+                            <div class="row text-end">
+                                <a href="/pages/currentUserProfile.jsp" class="text-decoration-none text-reset">
+                                    <p><strong>${message.author.name} ${message.author.surname}</strong>
+                                        <c:if test="${message.author.userPhoto == null}">
+                                            <img src="https://img.freepik.com/premium-vector/figure-of-a-person-hand-drawn-outline-doodle-icon-sketch-illustration-of-a-standing-figure-for-print-web-mobile-and-infographics-isolated-on-white-background_107173-17483.jpg"
+                                                 class="rounded-circle border border-secondary" height="40" width="40"
+                                                 alt=""/>
+                                        </c:if>
+                                        <c:if test="${message.author.userPhoto != null}">
+                                            <img src="${message.author.userPhoto}"
+                                                 class="rounded-circle border border-secondary"
+                                                 height="40" width="40" alt=""/>
+                                        </c:if>
+                                </a>
+                                <p><em>${message.getFormatDateTime()}</em></p>
+                                <c:if test="${!message.isRead()}">
+                                    <p class="h4">
+                                        <mark>${message.text}</mark>
+                                    </p>
+                                </c:if>
+                                <c:if test="${message.isRead()}">
                                     <p class="h4">${message.text}</p>
-                                </div>
-                            </c:if>
-                        </c:forEach>
+                                </c:if>
+                            </div>
+                        </c:if>
+                        <c:if test="${message.author != currentUser}">
+                            <div class="row">
+                                <a href="/foundUserProfile?nickname=${message.author.nickname}"
+                                   class="text-decoration-none text-reset">
+                                    <p>
+                                        <c:if test="${message.author.userPhoto == null}">
+                                            <img src="https://img.freepik.com/premium-vector/figure-of-a-person-hand-drawn-outline-doodle-icon-sketch-illustration-of-a-standing-figure-for-print-web-mobile-and-infographics-isolated-on-white-background_107173-17483.jpg"
+                                                 class="rounded-circle border border-secondary" height="40" width="40"
+                                                 alt=""/>
+                                        </c:if>
+                                        <c:if test="${message.author.userPhoto != null}">
+                                            <img src="${message.author.userPhoto}"
+                                                 class="rounded-circle border border-secondary"
+                                                 height="40" width="40" alt=""/>
+                                        </c:if>
+                                        <strong>${message.author.name} ${message.author.surname}</strong></p>
+                                </a>
+                                <p><em>${message.getFormatDateTime()}</em></p>
+                                <p class="h4">${message.text}</p>
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </div>
                 <div class="card-footer bg-transparent border-secondary">
                     <form action="/sendMessage" method="post">
                         <label>
-    <textarea cols="85" rows="3" name="privateMessage"
-              placeholder="Write a message..."></textarea>
+                            <textarea cols="85" rows="3" name="privateMessage" placeholder="Write a message..."></textarea>
                         </label>
                         <input type="hidden" name="nickname" value="${user.nickname}">
                         <button class="btn btn-outline-info float-end mt-2 mb-2">Send a message</button>
