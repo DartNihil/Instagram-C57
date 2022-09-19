@@ -229,20 +229,23 @@
                             <h4>${sessionScope.currentUser.userPosts.size()} posts</h4>
                         </figure>
                     </div>
+                    <!-- Followers -->
                     <div class="col mt-5">
                         <figure>
-                            <a href="#" class="h3 text-dark">
+                            <a href="#showFollowersModal" class="h3 text-dark" data-bs-toggle="modal">
                                 ${sessionScope.currentUser.userFollowers.size()} followers
                             </a>
                         </figure>
                     </div>
+                    <!-- Subs -->
                     <div class="col mt-5">
                         <figure>
-                            <a href="#" class="h3 text-dark">
+                            <a href="#showSubsModal" class="h3 text-dark" data-bs-toggle="modal">
                                 ${sessionScope.currentUser.userSubscriptions.size()} subscriptions
                             </a>
                         </figure>
                     </div>
+
                 </div>
                 <div class="row mt-5">
                     <h1>${sessionScope.currentUser.name} ${sessionScope.currentUser.surname}</h1>
@@ -396,6 +399,66 @@
                         </p>
                     </c:if>
                 </c:forEach>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Show followers modal -->
+<div class="modal fade" id="showFollowersModal" tabindex="-1" aria-labelledby="showFollowersModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showFollowersModalLabel">Your followers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <c:forEach var="follower" items="${currentUser.userFollowers}">
+                    <form action="/foundUserProfile">
+                        <button class="btn btn-primary" name="nickname" value="${follower.nickname}">
+                            <li class="list-group-item">
+                                <img src="${follower.userPhoto}"
+                                     class="rounded-circle"
+                                     height="40" width="40" alt="..."/>
+                                    ${follower.name} ${follower.surname}
+                            </li>
+                        </button>
+                    </form>
+                </c:forEach>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Show subs modal -->
+<div class="modal fade" id="showSubsModal" tabindex="-1" aria-labelledby="showSubsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showSubsModalLabel">Your subscriptions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <c:forEach var="sub" items="${currentUser.userSubscriptions}">
+                    <form action="/foundUserProfile">
+                        <button class="btn btn-primary" name="nickname" value="${sub.nickname}">
+                            <li class="list-group-item">
+                                <img src="${sub.userPhoto}"
+                                     class="rounded-circle"
+                                     height="40" width="40" alt="..."/>
+                                    ${sub.name} ${sub.surname}
+                            </li>
+                        </button>
+                    </form>
+                </c:forEach>
+
             </div>
             <div class="modal-footer">
             </div>

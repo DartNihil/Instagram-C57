@@ -192,11 +192,23 @@
                             <h1>${user.nickname}</h1>
                         </figure>
                     </div>
+
+                    <!-- Subscribe&&Unsubscribe button -->
                     <div class="col">
-                        <form>
-                            <button type="button" class="btn btn-outline-secondary">Subscribe</button>
-                        </form>
+                        <c:if test="${!currentUser.userSubscriptions.contains(user)}">
+                            <form action="/subscribe">
+                                <button class="btn btn-outline-secondary"
+                                        name="nickname" value="${user.nickname}">Subscribe</button>
+                            </form>
+                        </c:if>
+                        <c:if test="${currentUser.userSubscriptions.contains(user)}">
+                            <form action="/unsubscribe">
+                                <button class="btn btn-outline-secondary"
+                                        name="nickname" value="${user.nickname}">Unsubscribe</button>
+                            </form>
+                        </c:if>
                     </div>
+
                 </div>
                 <div class="row justify-content-center">
                     <div class="col mt-5">
@@ -204,20 +216,23 @@
                             <h4>${user.userPosts.size()} posts</h4>
                         </figure>
                     </div>
+                    <!-- Followers -->
                     <div class="col mt-5">
                         <figure>
-                            <a href="#" class="h3 text-dark">
+                            <a href="#showFollowersModal" class="h3 text-dark" data-bs-toggle="modal">
                                 ${user.userFollowers.size()} followers
                             </a>
                         </figure>
                     </div>
+                    <!-- Subs -->
                     <div class="col mt-5">
                         <figure>
-                            <a href="#" class="h3 text-dark">
+                            <a href="#showSubsModal" class="h3 text-dark" data-bs-toggle="modal">
                                 ${user.userSubscriptions.size()} subscriptions
                             </a>
                         </figure>
                     </div>
+
                 </div>
                 <div class="row mt-5">
                     <h1>${user.name} ${user.surname}</h1>
@@ -302,6 +317,95 @@
         </div>
     </div>
 </div>
+
+<!-- Show followers modal -->
+<div class="modal fade" id="showFollowersModal" tabindex="-1" aria-labelledby="showFollowersModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showFollowersModalLabel">Your followers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <c:forEach var="follower" items="${user.userFollowers}">
+                    <c:if test="${follower == sessionScope.currentUser}">
+                        <form action="/pages/currentUserProfile.jsp">
+                            <button class="btn btn-primary" name="nickname" value="${follower.nickname}">
+                                <li class="list-group-item">
+                                    <img src="${follower.userPhoto}"
+                                         class="rounded-circle"
+                                         height="40" width="40" alt="..."/>
+                                        ${follower.name} ${follower.surname}
+                                </li>
+                            </button>
+                        </form>
+                    </c:if>
+                    <c:if test="${follower != sessionScope.currentUser}">
+                        <form action="/foundUserProfile">
+                            <button class="btn btn-primary" name="nickname" value="${follower.nickname}">
+                                <li class="list-group-item">
+                                    <img src="${follower.userPhoto}"
+                                         class="rounded-circle"
+                                         height="40" width="40" alt="..."/>
+                                        ${follower.name} ${follower.surname}
+                                </li>
+                            </button>
+                        </form>
+                    </c:if>
+                </c:forEach>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Show subs modal -->
+<div class="modal fade" id="showSubsModal" tabindex="-1" aria-labelledby="showSubsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showSubsModalLabel">Your subscriptions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <c:forEach var="sub" items="${user.userSubscriptions}">
+                    <c:if test="${sub == sessionScope.currentUser}">
+                        <form action="/pages/currentUserProfile.jsp">
+                            <button class="btn btn-primary" name="nickname" value="${sub.nickname}">
+                                <li class="list-group-item">
+                                    <img src="${sub.userPhoto}"
+                                         class="rounded-circle"
+                                         height="40" width="40" alt="..."/>
+                                        ${sub.name} ${sub.surname}
+                                </li>
+                            </button>
+                        </form>
+                    </c:if>
+                    <c:if test="${sub != sessionScope.currentUser}">
+                        <form action="/foundUserProfile">
+                            <button class="btn btn-primary" name="nickname" value="${sub.nickname}">
+                                <li class="list-group-item">
+                                    <img src="${sub.userPhoto}"
+                                         class="rounded-circle"
+                                         height="40" width="40" alt="..."/>
+                                        ${sub.name} ${sub.surname}
+                                </li>
+                            </button>
+                        </form>
+                    </c:if>
+                </c:forEach>
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>

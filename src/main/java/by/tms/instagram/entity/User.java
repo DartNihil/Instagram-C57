@@ -127,10 +127,12 @@ public class User implements Serializable {
     public List<Like> getLikesHistory() {
         return likesHistory;
     }
+
     public List<Like> getReverseLikesHistory() {
         Collections.reverse(likesHistory);
         return likesHistory;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
