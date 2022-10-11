@@ -1,5 +1,7 @@
 package by.tms.instagram.entity;
 
+import by.tms.instagram.entity.message.Comment;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

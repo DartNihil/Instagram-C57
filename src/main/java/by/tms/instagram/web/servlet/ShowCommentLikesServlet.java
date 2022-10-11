@@ -1,9 +1,9 @@
 package by.tms.instagram.web.servlet;
 
-import by.tms.instagram.entity.Comment;
+import by.tms.instagram.entity.message.Comment;
 import by.tms.instagram.entity.Post;
 import by.tms.instagram.entity.User;
-import by.tms.instagram.service.CommentService;
+import by.tms.instagram.service.MessageService;
 import by.tms.instagram.service.PostService;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.web.Constant;
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class ShowCommentLikesServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
     private final PostService postService = PostService.getInstance();
-    private final CommentService commentService = CommentService.getInstance();
+    private final MessageService messageService = MessageService.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String postDate = req.getParameter("userPostDate");
@@ -28,7 +28,7 @@ public class ShowCommentLikesServlet extends HttpServlet {
         String commentDate = req.getParameter("postCommentDate");
         Optional<User> userByEmail = userService.findByNickNameAndEmail(userEmail, "");
         Post post = postService.findPost(userByEmail.get(), postDate);
-        Comment comment = commentService.findComment(post, commentDate);
+        Comment comment = messageService.findComment(post, commentDate);
         req.setAttribute("comment", comment);
         getServletContext().getRequestDispatcher(Constant.COMMENT_LIKES_PAGE).forward(req, resp);
     }

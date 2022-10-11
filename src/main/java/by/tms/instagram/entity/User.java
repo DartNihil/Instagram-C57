@@ -1,10 +1,9 @@
 package by.tms.instagram.entity;
 
+import by.tms.instagram.entity.message.PrivateMessage;
+
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -19,6 +18,7 @@ public class User implements Serializable {
     private final List<User> userFollowers = new ArrayList<>();
     private final List<User> userSubscriptions = new ArrayList<>();
     private final List<Like> likesHistory = new ArrayList<>();
+    private final Map<User, List<PrivateMessage>> privateMessages = new HashMap<>();
     private long userRoleID;
     private long userStatusID;
 
@@ -108,6 +108,10 @@ public class User implements Serializable {
         return userSubscriptions;
     }
 
+    public Map<User, List<PrivateMessage>> getPrivateMessages() {
+        return privateMessages;
+    }
+
     public long getUserRoleID() {
         return userRoleID;
     }
@@ -130,6 +134,18 @@ public class User implements Serializable {
     public List<Like> getReverseLikesHistory() {
         Collections.reverse(likesHistory);
         return likesHistory;
+    }
+    public int getCountOfUnreadMessages() {
+        int count = 0;
+        for (User user : privateMessages.keySet()) {
+            List<PrivateMessage> list = privateMessages.get(user);
+            for (PrivateMessage message:list) {
+                if(message.getAuthor().equals(user) && !message.isRead()) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
     @Override
     public boolean equals(Object o) {

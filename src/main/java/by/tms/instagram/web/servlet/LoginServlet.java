@@ -1,9 +1,9 @@
 package by.tms.instagram.web.servlet;
 
 import by.tms.instagram.entity.User;
+import by.tms.instagram.service.MessageService;
 import by.tms.instagram.service.UserService;
 import by.tms.instagram.service.validator.RegistrationValidator;
-import by.tms.instagram.web.Constant;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +19,7 @@ import static by.tms.instagram.web.Constant.CURRENT_USER_PAGE;
 @WebServlet(value = "/login", name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
     private final UserService userService = UserService.getInstance();
+    private final MessageService messageService = MessageService.getInstance();
     RegistrationValidator validator = RegistrationValidator.getInstance();
 
     @Override
